@@ -18,8 +18,7 @@ var GTAjVar = {helpurl:'http://ufqi.com/dev/gtajax/'} ;
 var GTAjStatus = {hdlcp:0, nowopen:0, lastopen:0, gti:0, tlpid:0, bki:0,maxbk:9, ierdy:0};
 var GTAjBK = {} ;
 
-function GTAjax()
-{
+function GTAjax(){
 	//--- initiate
 	GTAjStatus.gti++;
 	GTAj = this ;

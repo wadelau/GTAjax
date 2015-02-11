@@ -1,0 +1,603 @@
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title> GTAjax / 通用Ajax </title>
+<meta name="Description" content="ajax,gtajax,通用ajax,general-targeted ajax,wadelau,wade lau,ufqi,ufqi.com"/>
+<meta name="Abstract" content="ajax,gtajax,通用ajax,general-targeted ajax,wadelau,wade lau"/>
+<meta name="Keywords" content="ajax,gtajax,通用ajax,general-targeted ajax,wadelau,wade lau,ufqi"/>
+<script type="text/javascript" src="GTAjax_.js"></script>
+<script type="text/javascript">
+<!--
+function test4( sFrm ){
+		//--- 3.0+ 版本的调用
+		var gtajax = new GTAjax();
+		if(sFrm=='myform')
+		{
+			gtajax.set('chkform','userMail:email+:please fill a valid email.');
+			gtajax.set('chkform','ta1:minlen=10:at least 10 characters required.');
+		}
+		gtajax.set('returnname','返回');
+		//gtajax.set('isdebug',true);
+		//setGTAjax('targetarea','historycomments');
+		gtajax.set('targetarea','formArea');
+		gtajax.set('forceframe',true);  //--- use it in an exist surroundings.
+		gtajax.set('iscache',false);
+		var tmpstr = gtajax.get( sFrm ) ;
+
+		//if(getTmpStr!=false)
+		{
+			setTimeout('readComments4(1)',10*1000);
+		}
+
+}
+
+function readComments4(iBgn)
+{
+	//--- 3.0+版本的调用
+
+	var gtajax = new GTAjax();
+
+	gtajax.set('targetarea','historycomments');
+ 	//setGTAjax('forceframe',true);
+
+ 	//setGTAjax('returndataonly',true);
+
+ 	gtajax.set('iscache',false);
+
+	//var getTmpStr = GTAjax('gtajax.test.do.php?actstr=list&ibgn='+iBgn);
+	var tmpstr = gtajax.get('gtajax.test.do.php?actstr=list&ibgn='+iBgn);
+
+	if(iBgn!='0')
+	{
+		//window.location.href='#readcomments';
+	}
+
+
+}
+
+function test3(sFrm)
+{
+ 	// before submiting...
+ 	if(sFrm=='myform')
+	{
+		setGTAjax('chkform','userMail:email+:please fill a valid email.');
+		setGTAjax('chkform','ta1:minlen=10:at least 10 characters required.');
+	}
+	setGTAjax('returnname','返回');
+	//setGTAjax('targetarea','historycomments');
+	setGTAjax('targetarea','formArea');
+	//setGTAjax('forceframe',true);  //--- use it in an exist surroundings.
+	setGTAjax('iscache',false);
+	//setGTAjax('returndataonly',true);
+	var getTmpStr = GTAjax(sFrm);
+  	// after submited...
+	//if(getTmpStr!=false)
+	{
+		setTimeout('readComments(1)',10*1000);
+	}
+}
+
+function test5(sUrl)
+{
+	// before go to next url....
+	setGTAjax('targetarea','newdiv');
+	//setGTAjax('returndataonly',true);
+	setGTAjax('iscache',false);
+	var getTmpStr = GTAjax(sUrl);
+	// after get remote material...
+}
+
+function readComments(iBgn)
+{
+	setGTAjax('targetarea','historycomments');
+ 	//setGTAjax('forceframe',true);
+
+ 	//setGTAjax('returndataonly',true);
+
+ 	setGTAjax('iscache',false);
+
+	//var getTmpStr = GTAjax('gtajax.test.do.php?actstr=list&ibgn='+iBgn);
+	var getTmpStr = GTAjax('gtajax.test.do.aspx?actstr=list&ibgn='+iBgn);
+	if(iBgn!='0')
+	{
+		//window.location.href='#readcomments';
+	}
+	//alert('getdata: '+getTmpStr);
+}
+
+//window.resizeTo(800,600);
+
+//-->
+</script>
+<style>
+body,td,a,p
+{
+	font-family:tahoma,verdana,arial,sans-serif;
+	font-size:9pt;
+	text-decoration:none;
+	line-height:180%
+}
+.ab{ font-size:25; font-weight:bold }
+.ac{ font-size:15; font-weight:bold }
+</style>
+</head>
+
+<body>
+
+<font class="ab">GTAjax / 通用Ajax</font> ( LastUpdated: <script type="text/javascript">document.write(document.lastModified);</script> )
+<br/>
+
+<br/>
+<b>Author: Wade Lau</b>, wadelau@ufqi.com, wadelau@hotmail.com
+<br/>
+<br/>
+<font class="ac">Summary / 概述</font>
+
+<hr size="1"/>
+<b>GTAjax</b> is <b>Generally-Targeted Ajax</b>. <b>Ajax</b> stands for <b>A</b>synchronous <b>J</b>avaScript <b>A</b>nd <b>X</b>ML.
+<br/><b>GTAjax</b> is a kind of Ajax, and beyond the Ajax.
+<br/>
+Maybe you have see and have used it in some coding experience. And also, you have not found any inefficent, actually, common Ajax has its own limits in many ways, It depends on the environment heavily.
+<br/>
+Mostly, you code one Ajax which can not run in another place with differences in Browser,Operating System,Bankend programming components，etc...
+<br/>In order to comply with the differences, people creates many kinds of Ajax, amd so do I, luckily enough, I found one generally-targeted way to comply with all the differences...
+<strike>, I call it GTAjax.  Another reason for this name is GTAjax  also refers to <b>GridTask Ajax</b></strike> .<br/>
+<br/>
+GTAjax 就是<b>通用(Generally-Targeted)Ajax</b>的意思。是Ajax的一种. Ajax是异步Javascript和XML应用的合称。
+ 可能你已经见到和使用过Ajax的应用，并且还没有发现它有什么不足。实际上，Ajax本身有很多限制，它对环境的依赖很强。
+
+<br/>大多数情况是你在一处写的Ajax无法在别的地方使用，它对浏览器，操作系统和后台程序都有不同的限制和要求。
+<br/>人们为了完成各样环境下的Ajax应用，编写不了不同的Ajax版本，我也一样，幸运的是我找到一个可以通行应用于不同环境下的Ajax，我叫它GTAjax。 <strike>取这个名字的另外一个原因是,GTAjax  也代表 GridTask  Ajax 的意思。</strike>
+<br/>
+<br/>
+<br/>
+<font class="ac">Feathers / 特征</font>
+
+<hr size="1"/>
+GTAjax的特征表现在:
+<br/>
+1. 具有Ajax的功用,可替代Ajax的工作
+<br/>
+2.
+其通用性表现在:
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;a. 与操作系统无关，这应是javascript的本性
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;b. 与浏览器无关,目前我们已经在MSIE，Mozilla firefox,Opera上测试通过
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;c. 与Web服务器无关,
+不依赖于Web服务器的特质去完成任务,可在流行的Apache，IIS等Web server运营的站点使用
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;d. 与后台脚本应用程序无关, 也即针对后台服务器脚本asp,php,jsp,perl等无须做改动
+<br/>3. 对Ajax的硬伤--文件上传作了单独的优化处理
+<br/>4. 代码精简，仅有7k左右
+, (带表单验证有12K，多实例同时排队机制20+K)
+<br/>5. 使用简便,可调用操作，设置不同运行参数
+<br/>6. 无需设置服务器端,这一点听起来很荒谬
+
+<br/>7. 表单验证(v1.58+)
+<br/>8. 多实例同时运行(v3.10+)
+<br/>9. 改进的表单验证，通过使用 form 内 input 字段的 <i>accept</i> 属性设置，可以实现媲美 html5 方式的表单输入验证(v5.2+) (问题是都 html5 了，这个功能不是鸡肋了吗? —— 等地球上的浏览器都支持 html5 像现在的浏览器都支持 javascript 之后，新增部分会被移除.)
+<br/>
+GTAjax's feathers include:
+<br/>1. do what Ajax can do
+<br/>2. its general feather as following:
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp; a. no mater what OS , inherits from javascript
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp; b. no matter what Browser, it has been tested pass in MSIE, firefox, Opera
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp; c. no matter what web server, it can used in Apache, IIS, etc
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp; d. no matter what backend programming language, it can be used with jsp, asp, php, perl,etc
+<br/>3. for Ajax's shortcoming--file upload, it has been optimised to handle files upload  correctly
+<br/>4. small size, only about 7k
+, (with form validator up to 12k, with concurrent instances more than 20k)
+<br/>5. easy to use, with  parameters to set for specified running
+<br/>6. no action needed with server, which sounds unreasonable
+
+<br/>7. form validator (v1.58+)
+<br/>8. multiple instances running in queue (v3.10+)
+<br/>9. enhanced form input validating functions, same as client-side validators in html5. this needs help from the <i>accept</i> property of input field in form of current html (v5.2+)
+<br/>
+<br/>
+<br/>
+<font class="ac">Usage / 用法</font>
+<hr size="1"/>
+在您的网页代码中加入:[place the following code in your page]
+<br/>
+<table cellSpacing="0" width="80%" bgColor="#eeeeee" border="1">
+	<tr>
+		<td align="left">
+			....<br/>
+		&lt;script type=&quot;text/javascript&quot; src=&quot;GTAjax_.js&quot;&gt;&lt;/script&gt;
+			<br/>....&nbsp;
+		</td>
+	</tr>
+</table>
+<br/>
+然后写出自己的业务处理函数[then, write you own functions]:
+<br/>
+
+<table cellSpacing="0" width="80%" bgColor="#eeeeee" border="1">
+	<tr>
+		<td>
+			<pre><b>v3.10+ 面向对象的调用实例</b>:
+<br/>
+写出自己的处理函数
+&lt;script type="text/javascript"&gt;
+function includeFile(strUrl,strId,isCache)
+{
+	var gtajax = new GTAjax();
+	if(!isCache)
+	{
+		gtajax.setGTAjax('iscache',false);
+	}
+	gtajax.setGTAjax('targetarea',strId);
+	var sTmp = gtajax.getGTAjax(strUrl);
+}
+&lt;/script&gt;
+<br/>
+v5.2+ 之后，不再支持 setGTAjax / getGTAjax ， 统一为 set / get .
+
+<br/>
+然后页面中调用:
+&lt;div id="div-1"&gt;&lt;script type="text/javascript"&gt;includeFile('abc.jsp','div-1',false);&lt;/script&gt;&lt;/div&gt;
+			</pre>
+			</td>
+	</tr>
+</table>
+ <br/>
+<table cellSpacing="0" width="80%" bgColor="#eeeeee" border="1">
+	<tr>
+		<td align="left">
+			....<br/>
+		<p>function subMyForm(sFrm)<br>
+{<br>
+// before submiting...<br>
+<b>setGTAjax('returnname','Back');</b> // do settings 设置环境变量<br>
+<b>var getTmpStr = GTAjax(sFrm);</b> // main action 调用主函数处理并取结果<br>
+// after submited... <br>
+} <br>
+<br/>
+v3.10+ 之后，使用面向对象的设置，需在调用前通过 new 操作符生成实例.
+<br>
+GTAjax不但能递交表单，也可处理url请求 [also,GTAjax could handle url request]
+<br/>
+function handleMyUrl(sUrl)<br>
+{<br>
+// before go to next url....<br>
+<b>setGTAjax('targetarea','newdiv');</b>// 设置将从服务器端取到的内容显示到新区域 <br>
+//setGTAjax('returndataonly',true);<br>
+<b>setGTAjax('iscache',false);</b> // 设置是否处理缓存，更多设置见附后参考[with more settings in the following part]<br>
+<b>var getTmpStr = GTAjax(sUrl);</b> // 主处理函数 <br>
+// after get remote material...<br>
+}
+　</p>....&nbsp;
+		</td>
+	</tr>
+</table>
+<br/>
+接着将这些动作绑定到对象去[then, bind the function to your target]:
+<br/>
+<table cellSpacing="0" width="80%" bgColor="#eeeeee" border="1">
+	<tr>
+		<td align="left">
+			....<br/>
+<p><b>&lt;span id=&quot;formArea&quot;&gt;(请将form放到一个对象中去,place form in a named object)</b><br>
+&lt;br/&gt; <br>
+&lt;form name=&quot;myform&quot; id=&quot;myform&quot; action=&quot;thisform.do.php&quot; method=&quot;post&quot;
+&gt; <br>
+&lt;input type=&quot;text&quot; id=&quot;userName&quot; name=&quot;userName&quot; value=&quot;Wade Lau&quot;/&gt;&lt;br/&gt;<br>
+....<br>
+&lt;input type=&quot;submit&quot; value=&quot;Submit&quot; id=&quot;btn1&quot; name=&quot;btn1&quot; <b>onclick=&quot;javascript:subMyForm(this.form.name);&quot;/&gt;(这里的参数是表单名,here give function the form's name)</b>&lt;br/&gt;
+<br>
+&lt;/form&gt;<br>
+&lt;/span&gt;
+　</p>
+	...&nbsp;
+		</td>
+	</tr>
+
+</table>
+<br/>
+ok,done.<a href="#testarea">现在，开始吧[now, it is time to go] ....
+ </a>
+<br/>
+<br/>
+<br/>
+<font class="ac">Reference and Download / 参考和下载</font>
+<hr size="1"/>
+<font face="Webdings" size="4">@</font> GTAjax运行时配置参考[settings references]:
+<br/>
+<table cellSpacing="0" width="80%" bgColor="#eeeeee" border="1">
+	<tr>
+		<td align="left">
+			....<br/>
+		setGTAjax('subbtnval','Submit'); //  表单递交按钮显示的字符，默认是Submit<br>
+setGTAjax('maxuploadfiletime',3*60*1000); //
+上传文件等待回应的最大时间，默认是3分钟<br>
+setGTAjax('targetarea','areaname'); //
+递交请求获取数据后写在当前页面的何处，默认是递交元素所在的区域<br>
+setGTAjax('returnname','Return'); //
+表单递交后，返回链接的显示字符，默认是Return<br>
+setGTAjax('returndataonly',false); //
+是否仅仅取得返回数据(而不向目标区域写入)，默认是false<br>
+setGTAjax('iscache',true); //  是否缓存从服务器取得的内容，默认是true
+<br/>
+setGTAjax('forceframe',false); //  是否强制使用iframe技术,即便没有fileupload行为也不使用xmlhttp,在一些xmlhttp受限的地方可使用iframe代替
+<br/>
+
+setGTAjax ('processbar',true); // 是否显示处理中提示条, 默认是显示 (1.89+, idea from ayg at founder dot com)<br/>
+setGTAjax ('backlink',true); // 是否在返回内容中追加返回链接,默认为是(1.89+ )
+<br/>setGTAjax('forceframetag','fftag'); //告知服务器端,此次请求是普通请求,非xmlhttp,服务器端可据此fftag=1来判断(1.91+)
+<br/>
+setGTAjax('chkform','userMail:email+:user mail should be an valid email address'); //
+ 设定表单递交验证项(详细见下表)
+
+ <br/><br/>
+ <hr/>
+ v3.0+的属性设置, 在上述的名称前加一个实例对象:
+ <br/>gtajaxinstance.setGTAjax(name, value) ;
+ <br/>或者
+ <br/>gtajaxinstance.set(name, value);
+ <br/>取值的地方也增加了:
+ <br/>gtajaxinstance.get( object ) ;
+ <br/> <br/>
+ <hr/>
+v4.0新增属性设置:
+<br/>gtajaxinstance.set('nobacktag','<!-gtajaxsucc-->');  //--- 设定如果服务器端返回的内容中含有此字串则不在内容后面附加"返回"的链接
+<br/>gtajaxinstance.set('nocopy',false);	 //--- 设定是否禁止加载页面的内容被复制
+<br/>
+<br/>
+<hr/>
+v5.2新增属性和不兼容设置：
+<br/>
+	1.表单验证的写法：
+	<br/>	&lt;input type="text" name="email_address" id="email_address" accept="email+::Please input correct Email" /&gt;
+	<br/> 与之前相比：
+		<br/> 1.1 表单验证的设置，可以不再通过 gtajaxinstance.set('chkform','strFormFieldName:formValidateType:	errorMessage') 的方式设置
+		<br/> 1.2 设置项，不再使用 : ，而是使用2个 : ，也即 :: 来分割设置项内容
+
+
+			<br/>....
+		</td>
+	</tr>
+</table>
+
+
+<br/>
+GTAjax的表单验证(<b>v5.10- 适用, v5.2+ 请参照上面的说明</b>),其配置为:
+<br/> setGTAjax('chkform','userMail:email+:user mail should be an valid email address');
+<br/>其中'chkform'
+: tell GTAjax to validate form data.
+<pre>
+'<font color="red">userMail</font>:	<font color="green">email+</font>:		<font color="#800080">user mail should be an valid email address</font>'
+'<font color="red">strFormFieldName</font>:<font color="green">formValidateType</font>:	<font color="#800080">errorMessage</font>'
+</pre>GTAjax Form Validation Descriptors
+  // GTAjax 表单验证关键字描述
+     <table cellSpacing="0" width="80%" bgColor="#eeeeee" border="1">
+
+      	<tr><td height="25"><b>formValidateType</b></td><td><b>Explainations</b>[partly from  http://www.javascript-coder.com ]</td></tr>
+      <tr><td>required<BR>req</td>
+<td>The field should not be
+empty  // 不能为空</td></tr>
+      <tr>
+<td>
+      	maxlen=???<BR>
+      	maxlength=???
+      	</td>
+          <td>checks the length entered data to the maximum. For
+            example, if the maximum size permitted is 25, give the validation descriptor as "maxlen=25"
+// 长度检测,至多允可长度,  如欲限定在25字符内,则使用表达式, "maxlen=25", 在GTAjax中的完整表达为
+            <br/>setGTAjax('chkform','strField:maxlen=25:this field max length is 25.');      	</td>
+      </tr>
+      <tr>
+<td>
+      	minlen=???<BR>
+      	minlength=???
+      	</td>
+          <td>checks the length of the entered string to the
+            required minimum. example "minlen=5"
+ //最小限定为
+      	</td>
+      </tr>
+      <tr>
+ <td>
+      	alphanumeric<br/>
+      	alnum
+      	</td>
+          <td>Check the data if it
+            contains any other characters other than alphabetic or numeric characters //仅为字母和数字(不含符号等)
+      	</td>
+      </tr>
+      <tr>
+ <td>num <BR>
+      	numeric
+      	</td>
+          <td>Check numeric data // 仅为数字
+      	</td>
+      </tr>
+      <tr>
+<td>alpha <BR>
+      	alphabetic
+      	</td>
+          <td>Check alphabetic data. // 仅为字母
+      	</td>
+      </tr>
+      <tr>
+<td>email
+      	</td>
+          <td>The field is an email
+            field and verify the validity of the data. // 限为合法email地址
+      	</td>
+      </tr>
+      <tr>
+<td>lt=???<BR>
+      	lessthan=???
+      	</td>
+          <td>
+      	Verify the data to be less than the value passed.
+      	Valid only for numeric fields. <BR>
+      	example: if the
+            value should be less than 1000 give validation description as "lt=1000"
+  // 其值不大于
+      	</td>
+      </tr>
+      <tr>
+<td>gt=???<BR>
+      	greaterthan=???	</td>
+          <td>
+      	Verify the data to be greater than the value passed.
+      	Valid only for numeric fields. <BR>
+      	example: if the
+            value should be greater than 10 give validation description as "gt=10"
+ // 其值不小于
+      	</td>
+      </tr>
+      <tr>
+<td>regexp=???
+      	</td>
+          <td>
+      	 Check with a regular expression the value should match the regular expression.<BR>
+      	 example: "regexp=^[A-Za-z]{1,20}$" allow up to 20 alphabetic
+       	 characters. // 其值符合给定的正则表达式
+      	</td>
+      </tr>
+      <tr>
+<td><FONT color="#C0C0C0">dontselect=??</FONT><p>
+			<font color="#FF0000">&nbsp;Deprecated</font>
+      	</td>
+          <td><FONT color="#C0C0C0">This
+            validation descriptor is valid only for select input items (lists)
+            Normally, the select list boxes will have one item saying 'Select One' or
+            some thing like that. The user should select an option other than this
+            option. If the index of this option is 0, the validation description
+            should be "dontselect=0"
+  //  这个是 http://www.javascript-coder.com  的标配, 其本身局限大,功能小，舍弃
+      	</td>
+      </tr>
+      <tr>
+<td>notvalue=???<p>
+			<font color="green">newlyadded</font></td>
+          <td>Verify the data to be any data other
+			than the specified value
+ // 是上面一个的的升级和扩容,是一个反向概括,如不能让其值为空"notvalue="
+ , 不能选择第一个选项"notvalue=1",用户名一项的值不能等于初始值"notvalue=用户名"...      	</td>
+      </tr>
+      <tr>
+<td>(anyofabove)+<p>
+			<font  color="green">newlyadded</font></td>
+          <td>the &quot;+&quot; means req, or required, not
+			empty when added up to any type of validating above, e.g. &quot;email+&quot;
+			which means the expected value is an email address, and the field
+			also is required, not empty. //
+ 在写表单验证时参考了很多目前流行的,这个就是精简的结果,比如其中一项,即要符合email地址规范,又不能为空,则 "email+"
+ , 其中一项只能是数字,且不能留空,则 "num+",...	</td>
+      </tr>
+      </table>
+
+<br/>
+<br/>
+<font face="Wingdings" size="4">&lt;</font> 下载/Download
+<br/>
+<a href="#" title="GTAjax Version 5.2" target="_blank">2011.07.20, GTAjax/通用Ajax-5.2 </a>
+<br/>
+<a href="#" title="GTAjax Version 5.10" target="_blank">2011.02.05, GTAjax/通用Ajax-5.10 </a>
+<br/>
+<a href="#" title="GTAjax Version 4.40" target="_blank">2009.06.07, GTAjax/通用Ajax-4.40 </a>
+<br/>
+<a href="#" title="GTAjax Version 4.33" target="_blank">2008.05.19, GTAjax/通用Ajax-4.33 </a>
+<br/>
+<a href="#" title="GTAjax Version 4.26" target="_blank">2008.04.10, GTAjax/通用Ajax-4.26 </a>
+<br/>
+<a href="#" title="GTAjax Version 4.25" target="_blank">2008.02.24, GTAjax/通用Ajax-4.25 </a>
+<br/>
+<a href="GTAjax-4.01_.js" title="GTAjax Version 4.01" target="_blank">2007.10.04, GTAjax/通用Ajax-4.01 </a>
+<br/>
+<a href="GTAjax_.20070722-3.10.zip" title="GTAjax Version 3.10" target="_blank">2007.07.22, GTAjax/通用Ajax-3.10 </a>(允许同时运行多个实例)
+<br/>
+2007.05.16, GTAjax/通用Ajax-2.01
+<br/>
+2006.10.12, GTAjax/通用Ajax-1.91
+<br/>
+2006.09.22, GTAjax/通用Ajax-1.89
+<br/>
+2006.07.25, GTAjax/通用Ajax-1.86
+<br/>
+2006.07.07, GTAjax/通用Ajax-1.72
+<br/>
+
+<a href="#" title="gtajax.with.aspx.zip">2006.05.23, GTAjax后端脚本之aspx  </a>
+<br/>
+<a href="#" title="gtajax.with.php.zip">2006.05.23, GTAjax后端脚本之php  </a>
+<br/>
+2006.03.22, GTAjax/通用Ajax-1.69
+<br/>
+2006.03.15, GTAjax/通用Ajax-1.58, with form validator.
+<br/>
+2006.03.12, GTAjax/通用Ajax-1.36
+<br/>
+2006.02.17, GTAjax/通用Ajax-1.28
+<br/>
+<br/>
+<br/>
+<font class="ac">Thanks and Declarations / 致谢与声明</font>
+<hr size="1"/>
+I wanna say THANKS :
+<br/>to my home, they do more and spare me to have time code these. 感谢我的家人，他们更多的操劳才使我有时间写这些.
+<br/>
+to Google, without its motivation, I have no idea about Ajax, and without it, I hardly complete this code.感谢Google,因其而起而又得其力.
+<br/>
+to dong_li98@hotmail.com, we do together an exciting action by submitting a form twice with javascript, which contributes mainly to this script. 感谢dong_li98@hotmail.com，我们一起制造了一个表单递交两次的尝试，这个思想对本文影响很大.
+<br/>
+ to AjaxAnywhere[JSP based Ajax], to Prototype[javascript extend library], to W3C, to RFC, to DOM, to lots of people who works on js and share their scripts with us ... 还要感谢AjaxAnywhere[jsp 环境中的Ajax],Prototype[javascript的扩展库], W3C, RFC, DOM 和其他许多在网上共享他们的js脚本的人...
+<br/>
+<br/>
+NOTICE:
+<br/>DO NOT USE THIS COMMERICALLY WITHOUT AUTHOR'S PAPER AUTHORIZATION.仅供个人免费使用，请勿复制用于商业获利.
+<br/>if needed, please contact with us at <a href="mailto:wadelau@ufqi.com?subject=GTAjax">wadelau@ufqi.com</a> 如有必要请联络 <a href="mailto:wadelau@ufqi.com?subject=GTAjax">wadelau@ufqi.com</a> 获取授权.
+<br/>
+<br/>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/zh_CN/i/btn/x-click-but21.gif" border="0" name="submit" alt="请使用贝宝付款，这是快捷、免费和安全的付款方式！">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+</form>
+<br/>
+<br/>
+<font class="ac">Instance/ 实例</font>
+<hr size="1"/>
+<a name="testarea"></a>
+This is a test for GTAjax:
+<br/>
+<span id="formArea">
+	<br/>
+<form name="myform" id="myform" action="gtajax.test.do.php" onsubmit="return false;">
+	您的电邮[Your E-Mail]:<br/><input type="text" id="userMail" name="userMail" value="" size="40"/><br/>
+	评论[Comment]:<br/><textarea id="ta1" name="ta1" cols="32" rows="5"></textarea><br/>
+	你的图片[Your Photo]:<br/><input type="file" id="file1" name="file1"/><br/>
+	<input type="submit" value="Submit" id="btn1" name="btn1" onClick="javascript:test4(this.form.name);"/><br/>
+</form>
+</span>
+<a name="readcomments"></a><br/>
+<font class="ac">Comments and History / 评论与历史</font> <br/>( GTAjax的FAQ支持应答系统: &nbsp;<a href="http://www.ufqi.com/qa/gtajax.html" target="_blank">http://ufqi.com/qa/gtajax.html</a>&nbsp; since 2008.03.13 )
+<hr size="1"/>
+<div id="historycomments"
+ align="left" width="60%">
+	<script>
+  		setTimeout('readComments4(0)',3000);
+   	</script>
+ </div>
+<!--
+<span id="resultArea">
+<a href="javascript:test5('gtajax.test.do.php?a=123');">将取到内容写到[write new data to]new div area</a>
+</span>
+<br/>
+<hr size="1">
+[
+<div id="newdiv">
+new div area
+</div>
+]
+-->
+<br/>
+<br/>
+<span align="right"><a href="/dev/" title="back to dev page"><font face="Webdings" size="4">H</font> Return/返回</a></span>
+
+</body>
+</html>
