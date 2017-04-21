@@ -3,7 +3,8 @@ GTAjax is Generally-Targeted Ajax.
 **Ajax stands for Asynchronous JavaScript And XML.** 
 GTAjax is a kind of Ajax, and beyond the Ajax. 
 ----
-Maybe you have see and have used it in some coding experience. And also, you have not found any inefficent, actually, common Ajax has its own limits in many ways, It depends on the environment heavily. 
+Maybe you have see and have used it in some coding experience. 
+And also, you have not found any inefficent, actually, common Ajax has its own limits in many ways, It depends on the environment heavily. 
 
 Mostly, you code one Ajax which can not run in another place with differences in Browser,Operating System,Bankend programming components，etc... 
 
