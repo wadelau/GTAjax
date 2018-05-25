@@ -268,17 +268,17 @@ function GTAjax(){
 					try{
 						GTAj.sUrl = sForm.action ;
 						GTAj.sMtd = sForm.method ;
-						var typeOfElement = (typeof GTAj.cA[el.name]);
-						if(typeOfElement == 'function'){ //- May 26, 2018 
-							this._DBG( GTAj.vA['ib'],'formValidate-201805250855', 'typeof '+el.name+' is '
-									+ typeOfElement
-									+ ', conflict with JavaScript native code, please rename it to xxx'
-									+ el.name+' or '+el.name+'xxx.') ;
-							continue;
-						}
 						for (var i = sForm.elements.length-1 ; i>=0; i--){
 							var el = sForm.elements[i];
 							var myCFM = this._CFM ;
+							var typeOfElement = (typeof GTAj.cA[el.name]);
+							if(typeOfElement == 'function'){ //- May 26, 2018 
+								this._DBG( GTAj.vA['ib'],'formValidate-201805250855', 'typeof '+el.name+' is '
+										+ typeOfElement
+										+ ', conflict with JavaScript native code, please rename it to xxx'
+										+ el.name+' or '+el.name+'xxx.') ;
+								continue;
+							}
 							if (el.tagName.toLowerCase() == 'select') {
 								for (var j = 0; j < el.options.length; j++){
 									var op = el.options[j];
