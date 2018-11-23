@@ -1,0 +1,28 @@
+
+javascript-based template engine:
+
+1) runtime in client-side, reduce computing render in server-side;
+2) language-independent, not-bound with backend scripts;
+3) totally-isolated between MVC, data transfer with JSON;
+4) full-support with built-in logic and customerized functions, express powerfully;
+
+
+JavaScript规范中，变量命名只允许 a-zA-Z 和 _, $ 开头;
+
+http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript
+
+
+steps:
+
+0. html tpl file (xxx.html) with javascripts enclosed with tags {} (changeable?);
+
+1. reverse all html into strings;
+
+2. parse all javascripts;
+
+3. read json serialized data from an html element;
+
+4. merge with javascripts and output;
+

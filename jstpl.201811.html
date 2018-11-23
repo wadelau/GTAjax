@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>新闻媒体 - eophy tpltitle:{$title}</title>
+<meta name="keywords" content="悠菲中国, eophy, tplkeyword:{$keywords}"/>
+<meta name="description" content="悠菲中国, 品味最纯生活" />
+<!-- <link type="image/png" rel="icon" href="favicon.png" /> -->
+<!-- 
+<link rel="stylesheet" type="text/css" href="./common.css" />
+<link rel="stylesheet" type="text/css" href="./layout.css" />
+-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="js/PIE_IE678.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="container">
+  <div id="header">
+    <div class="h_box">
+      <div class="logo"><a href="index.html">a logo</a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="about_us.html">关于我们</a>
+            <div class="submenu">
+              <ul>
+                  <li class="title"><a href="about_us.html">公司介绍</a></li>
+                  <li class="title"><a href="about_us_2.html">品牌介绍</a></li>
+                  <li class="title"><a href="about_us_3.html">品牌VIDEO</a></li>                  
+              </ul>
+            </div>
+          </li>
+          <li><a href="products.html">产品中心</a></li>
+          <li><a href="news.html" class="active">新闻媒体</a></li>
+          <li><a href="active.html">品牌活动</a></li>
+          <li><a href="faq.html">营养咨询</a></li>
+          <li><a href="sale.html">售卖专柜</a></li>
+          <li><a href="shop.html">网络商城</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!--#header-->
+  <div id="main">
+  <div class="homebk"> news logo</div>
+  <div class="mainbox2">
+    <div class="homelist">
+      <div class="box">
+        <div class="news">
+          <div class="title">最新新闻</div>
+          <div class="content">
+            <ul class="cont" tpldata="newslist::repeat::">
+			{foreach $newslist as $k=>$v}
+              <li><a class="btn_show" href="{href}">&gt; {$v['title']}
+					<a name="atag" tpldata="atag::updatevalue">{$v['href']}</a>
+			  </a></li>
+			{/foreach}
+              <!--
+			  <li><a class="btn_show" href="#1">&gt; 更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃。</a></li>
+				-->
+			</ul>
+          </div>
+          <div class="pages">
+            <ul>
+              <li><a href="javascript:;"> &lt; </a></li>
+              <li class="active"><a href="#"> 1 </a></li>
+              <li><a href="#"> 2 </a></li>
+              <li><a href="#"> 3 </a></li>
+              <li><a href="#"> 4 </a></li>
+              <li><a href="#"> ... </a></li>
+              <li><a href="#"> 6 </a></li>
+              <li><a href="javascript:;"> &gt; </a></li>
+              <li><a href="javascript:;" tpldata="newslist_nextpage::updateattribute::href" href="{$newslist_nextpage}"> 下一页 </a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="news_cnt" style="display:none;" tpldata="newscontentlist::repeat::"> <!-- tpldata="newscontentlist::updatevalue::type=list::format=firstchild" -->
+        {foreach $newscontentlist as $k=>$v}  
+		  <div id="promptBox">
+            <a href="javascript:;" class="btn_close">X</a>
+            <div class="title">{$v['title']}</div>
+            <div class="content">
+            {$v['content']}
+			</div>
+            <div class="pages">
+              <ul>
+                <li><a href="javascript:;"> &lt; </a></li>
+                <li class="active"><a href="#"> 1 </a></li>
+                <li><a href="#"> 2 </a></li>
+                <li><a href="javascript:;"> &gt; </a></li>
+                <li><a href="javascript:;"> 下一页 </a></li>
+              </ul>
+            </div>
+          </div>
+		  {/foreach}
+          <div id="promptBox2">
+            <a href="javascript:;" class="btn_close">X</a>
+            <div class="title">虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂#2</div>
+            <div class="content">
+              <p>
+BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”。</p>
+            </div>
+            <div class="pages">
+              <ul>
+                <li><a href="javascript:;"> &lt; </a></li>
+                <li><a href="javascript:;"> &gt; </a></li>
+              </ul>
+            </div>
+          </div>
+          <div id="promptBox12">
+            <a href="javascript:;" class="btn_close">X</a>
+            <div class="title">虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂#12</div>
+            <div class="content">
+              <p>
+BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”。</p>
+            </div>
+            <div class="pages">
+              <ul>
+                <li><a href="javascript:;"> &lt; </a></li>
+                <li><a href="javascript:;"> &gt; </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+		<div class="news_cnt" style="display:block" tpldata="newslist2::repeat::">
+			{foreach $newslist2 as $k=>$v}
+			<ul>
+				<li><a href="{$v['href']}">{$v['title']}</a></li>
+			</ul>
+			{/foreach}
+		</div>
+		<p>
+			<br/><br/>
+		</p>
+		<div class="news_cnt" tpldata="user.feedback::switch::">
+			{if $user['feedback'] == 1}
+			<div>Choice one{$user['iname']}</div>
+			{else if $user['feedback'] == 2}
+			<div tpldata="user.iname::updatevalue::">Choice two{$user['iname']}</div>
+			{else}
+			<div>
+				Choice three{$user['iname']}
+			</div>
+			{/if}
+		</div>
+	  </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!--#main-->
+  <div id="footer">
+    <div class="f_box">
+      <div class="f_logo">
+        <a href="http://www.eophy.com/"> base code </a>
+      </div>
+      <div class="f_logo">
+        <a href="javascript:;"> wenxin logo</a>
+      </div>
+      <div class="allright"> footer bottom </div>
+      <div class="f_menu">
+        <ul>
+          <li><a href="contact.html">联系我们</a></li>
+          <li><a href="legal.html">法律声明</a></li>
+          <li class="last"><a href="http://www.miit.gov.cn/" target="_blank" >京ICP备1204600号 </a> &copy; <span tpldata="copyright_year::updatevalue::">{$copyright_year}</span> Eophy. 保留所有权利.</li>
+        </ul>
+      </div>
+      <div class="allright_2">footer logo</div>
+    </div>
+  </div>
+</div>
+<div id="pagejson">
+{
+	"pagetitle": "-吉娃, GWA2 JTMPL-",
+	"newslist": {
+		"0": {"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂", "href":"#11"},
+		"1": {"title":"所有产品都含有天然雨生红球藻（富含天然虾青素）", "href":"#10"},
+		"2": {"title":"更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃", "href":"#9"},
+		"3": {"title":"真是极好的西红柿产品", "href":"#8"}
+	},
+	"copyright_year": 2017,
+	"keywords": "Wadelau, GWA2, gwa2",
+	"newslist_nextpage": "https://ufqi.com/#newlist_nextpage_value",
+	"newscontentlist":{
+		"0":{"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂1", "content":"111BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":3},
+		"1":{"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂2", "content":"222BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":3},
+		"2":{"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂3", "content":"333BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":2}
+	},
+	"user": {
+		"feedback": 1,
+		"iname": {"surname":"Wadelau", "familyname":"Lau"},
+		"age": "33"
+	},
+	"atag": "Xenxin\"s Tag",
+	"":""
+}
+</div>
+</body>
+<script type="text/javascript">
+//- GWA2JSTPL
+(function(){ //- anonymous func bgn
+
+	//- server response in json
+	var pageJsonElement = document.getElementById('pagejson');
+	var tplData = {};
+	if(pageJsonElement){ 
+		var tplDataStr = pageJsonElement.innerText; 
+		tplData = JSON.parse(tplDataStr);
+		console.log('tplData: '+tplData+' copyright_year: '+tplData['copyright_year']);
+	}
+	else{ console.log('pageJsonElement has error.'); }
+
+	var renderElement = function(i, elem, val){
+		
+	};
+
+})(); //- anonymous func end
+
+</script>
+</html>
