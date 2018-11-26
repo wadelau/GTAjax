@@ -52,11 +52,11 @@
           <div class="title">最新新闻</div>
           <div class="content">
             <ul class="cont" tpldata="newslist::repeat::">
-			{foreach $newslist as $k=>$v}
-              <li><a class="btn_show" href="{href}">&gt; {$v['title']}
-					<a name="atag" tpldata="atag::updatevalue">{$v['href']}</a>
+			{for (var $k in $newslist)}
+              <li><a class="btn_show" href="{$newslist[$k]['href']}">&gt; {$newslist[$k]['title']}
+					<a name="atag" tpldata="atag::updatevalue">{$newslist[$k]['title']}</a>
 			  </a></li>
-			{/foreach}
+			{/for}
               <!--
 			  <li><a class="btn_show" href="#1">&gt; 更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃。</a></li>
 				-->
@@ -148,8 +148,10 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 	  </div>
     </div>
     <div class="clear"></div>
+  <!-- mainbox -->
   </div>
   <!--#main-->
+  </div>
   <div id="footer">
     <div class="f_box">
       <div class="f_logo">
@@ -170,7 +172,7 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
     </div>
   </div>
 </div>
-<div id="pagejson">
+<div id="pagejsondata">
 {
 	"pagetitle": "-吉娃, GWA2 JTMPL-",
 	"newslist": {
@@ -199,23 +201,62 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 </body>
 <script type="text/javascript">
 //- GWA2JSTPL
-(function(){ //- anonymous func bgn
+/* 
+ * JavaScript-based Template Engine
+ * @Xenxin@ufqi.com, Wadelau@hotmail.com
+ * @Since Nov 11, 2018
+ */
+ 
+"use strict";
+(function(window){ //- anonymous func bgn
 
 	//- server response in json
-	var pageJsonElement = document.getElementById('pagejson');
+	var timeCostBgn = (new Date()).getTime();
+	var pageJsonElement = document.getElementById('pagejsondata');
 	var tplData = {};
 	if(pageJsonElement){ 
 		var tplDataStr = pageJsonElement.innerText; 
 		tplData = JSON.parse(tplDataStr);
 		console.log('tplData: '+tplData+' copyright_year: '+tplData['copyright_year']);
+		//- parse as global variables
+		for(var $k in tplData){
+			//console.log("k:"+$k+" v:"+tplData[$k]);
+			if($k != ''){
+				var $v = tplData[$k];
+				$k = '$'+$k;
+				if(window){ window[$k] = $v; }else{ console.log('window undefined error.'); }
+			}
+		}
+		//- hide raw data
+		pageJsonElement.style.height = '0px';
+		pageJsonElement.style.visibility = 'hidden';
 	}
 	else{ console.log('pageJsonElement has error.'); }
-
-	var renderElement = function(i, elem, val){
-		
+	
+	//- iterate all tag blocks
+	console.log("aft parse copyright_year:"+$copyright_year);
+	var renderElement = function(window, document, tplHTML){
+		var re = /\{([^\}]+)\}/gm, match, tplRaw;
+		if(!tplHTML){
+			tplRaw = document.body.innerHTML || document.innerHTML; 
+			tplRaw = tplRaw.substring(0, tplRaw.indexOf('pagejsondata'));
+		}
+		else{
+			tplRaw = tplHTML;
+		}
+		//console.log("tplRaw:"+tplRaw);
+		while(match = re.exec(tplRaw)){
+			console.log(match);
+		}
 	};
-
-})(); //- anonymous func end
+	
+	//- compile
+	renderElement(window, document, null);
+	
+	//-
+	console.log("tpl parse time cost:"+((new Date()).getTime() - timeCostBgn));
+	
+})(window); //- anonymous func end
 
 </script>
 </html>
