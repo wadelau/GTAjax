@@ -299,9 +299,9 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 						if(exprStr.indexOf('$') == 0){
 							tpl2code += "\ttpl2js.push("+exprStr+");\n";
 						}
-						else if(exprStr.match(/.*({|;|}).*/gm)){ // exceptions
+						else if(exprStr.match(/.*({|}).*/gm)){ // exceptions
 							tpl2code += "\ttpl2js.push(\""+matchStr+"\");\n";
-							console.log("illegal tpl sentence:["+matchStr+"] for containing {, }, ;. 201812012201.");
+							console.log("illegal tpl sentence:["+matchStr+"] for containing { or }. 201812012201.");
 						}
 						else{
 							if(exprStr.match(/(^( )?(if|for|switch|case|break|{|}))(.*)?/g)){

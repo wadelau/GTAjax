@@ -76,14 +76,13 @@
             </ul>
           </div>
         </div>
-        <div class="news_cnt" style="display:block;" tpldata="newscontentlist::repeat::"> <!-- tpldata="newscontentlist::updatevalue::type=list::format=firstchild" -->
+        <div class="news_cnt" style="display:none;" tpldata="newscontentlist::repeat::"> <!-- tpldata="newscontentlist::updatevalue::type=list::format=firstchild" -->
         {for(var $k in $newscontentlist)}  
 		  <div id="promptBox">
             <a href="javascript:;" class="btn_close">X</a>
             <div class="title">{$newscontentlist[$k]['title']}</div>
-            <div class="content"><p>
-				{$newscontentlist[$k]['content']}
-				</p>
+            <div class="content">
+            {$newscontentlist[$k]['content']}
 			</div>
             <div class="pages">
               <ul>
@@ -99,6 +98,20 @@
           <div id="promptBox2">
             <a href="javascript:;" class="btn_close">X</a>
             <div class="title">虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂#2</div>
+            <div class="content">
+              <p>
+BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”。</p>
+            </div>
+            <div class="pages">
+              <ul>
+                <li><a href="javascript:;"> &lt; </a></li>
+                <li><a href="javascript:;"> &gt; </a></li>
+              </ul>
+            </div>
+          </div>
+          <div id="promptBox12">
+            <a href="javascript:;" class="btn_close">X</a>
+            <div class="title">虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂#12</div>
             <div class="content">
               <p>
 BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”。</p>
@@ -137,20 +150,12 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
     <div class="clear"></div>
   <!-- mainbox -->
   <script>
-	if(1==1){console.log("1==1."+(new Date()));}
-	else if(2==2)
-	{if(3==3){console.log("3==3"+(new Date()));};}
+	if(1==1){console.log("1==1."+(new Date())+" copyright_year:"+$copyright_year);}
   </script>
   </div>
   <!--#main-->
   </div>
   <div id="footer">
-  <script>
-	if(1==1){console.log("2nd 1==1."+(new Date()));}
-	else if(2==2)
-	{if(3==3){console.log("2nd 3==3"+(new Date()));};}
-	function aFunc(){if (1==1){console.log("this is in aFunc "+(new Date()));}}
-  </script>
     <div class="f_box">
       <div class="f_logo">
         <a href="http://www.eophy.com/"> base code </a>
@@ -166,7 +171,7 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
           <li class="last"><a href="http://www.miit.gov.cn/" target="_blank" >京ICP备1204600号 </a> &copy; <span tpldata="copyright_year::updatevalue::">{$copyright_year}</span> Eophy. 保留所有权利.</li>
         </ul>
       </div>
-      <div class="allright_2" onclick="javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}">footer logo</div>
+      <div class="allright_2">footer logo</div>
     </div>
   </div>
 </div>
@@ -188,7 +193,7 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 		"2":{"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂3", "content":"333BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":2}
 	},
 	"user": {
-		"feedback": 2,
+		"feedback": 1,
 		"iname": {"surname":"Wadelau", "familyname":"Lau"},
 		"age": "33"
 	},
@@ -200,7 +205,7 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 <script type="text/javascript">
 //- JSTPL
 /* 
- * JavaScript-based HTML Template Engine , born with GWA2
+ * JavaScript-based Template Engine , born with GWA2
  * @Xenxin@ufqi.com, Wadelau@hotmail.com
  * @Since Nov 11, 2018
  */
@@ -209,7 +214,6 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 
 (function(window){ //- anonymous func bgn
 
-	const parseTag = ':JSTPL:'; const tplVarTag = '$';
 	//- server response in json
 	var timeCostBgn = (new Date()).getTime();
 	var pageJsonElement = document.getElementById('pagejsondata');
@@ -217,13 +221,13 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 	if(pageJsonElement){ 
 		var tplDataStr = pageJsonElement.innerText; 
 		tplData = JSON.parse(tplDataStr);
-		if(!tplData['copyright_year']){ tplData['copyright_year'] = (new Date()).getYear(); }
-		//- parse json keys as global variables
+		console.log('tplData: '+tplData+' copyright_year: '+tplData['copyright_year']);
+		//- parse as global variables
 		for(var $k in tplData){
 			//console.log("k:"+$k+" v:"+tplData[$k]);
 			if($k != ''){
 				var $v = tplData[$k];
-				$k = tplVarTag + $k;
+				$k = '$'+$k;
 				if(window){ window[$k] = $v; }else{ console.log('window undefined error.'); }
 			}
 		}
@@ -237,7 +241,7 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 	console.log("aft parse copyright_year:"+$copyright_year);
 	var renderElement = function(window, document, tplHTML){
 		//var re = /\{([^\}]+)\}/gm, match, tplRaw, tplObject;
-		var tplRe = /\{((for|if|else|switch|break|case|\$|\/)[^}]*)\}/gm, match, tplRaw, tplObject;
+		var re = /\{([for|if|else|break|case|switch|\$|\/][^}]*)\}/gm, match, tplRaw, tplObject;
 		tplObject = document.body || document; 
 		if(!tplHTML){
 			tplRaw = tplObject.innerHTML;
@@ -246,85 +250,44 @@ BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发
 		else{
 			tplRaw = tplHTML;
 		}
-		//- parse original scripts first
-		tplRaw = tplRaw.replace(/[\n|\r]/g, '');
-		var scriptRe = /<script[^>]*>(.*?)<\/script>/gm;
-		var hasScript = false; var tplSegment = [];
-		var lastpos = 0;
-		var staticStr, ipos, matchStr, exprStr;	
-		while(match = scriptRe.exec(tplRaw)){
-			//console.log(match);
+		//console.log("tplRaw:"+tplRaw);
+		var lastpos = 0; var tpl2code = "var tpl2js = [];\n";
+		var staticStr, ipos, matchStr, exprStr;		
+		while(match = re.exec(tplRaw)){
 			ipos = match.index;
 			staticStr = tplRaw.substring(lastpos, ipos);
+			//console.log("bfr staticStr:"+staticStr);
 			if(true){
-				//staticStr = staticStr.replace(/"/g, '\\"');
-				tplSegment.push(parseTag + staticStr);
+				staticStr = staticStr.replace(/"/g, '\\"'); 
+				staticStr = staticStr.replace(/[\n|\r]/g, '');
+				tpl2code += "\ttpl2js.push(\""+staticStr+"\");\n";
+				//console.log(match);
 				matchStr = match[0];
 				exprStr = match[1];
-				tplSegment.push(exprStr);
+				//console.log("aft exprStr:"+exprStr);
+				if(exprStr.indexOf('$') == 0){
+					tpl2code += "\ttpl2js.push("+exprStr+");\n";
+				}
+				else{
+					if(exprStr.match(/(^( )?(if|for|switch|case|break|{|}))(.*)?/g)){
+						exprStr += '{';
+					}
+					else if(exprStr.indexOf('else') == 0){
+						exprStr = '}' + exprStr + '{';
+					}
+					else if(exprStr.indexOf('/') == 0){
+						exprStr = '}'; 
+					}
+					tpl2code += "\n" + exprStr + "\n";
+				}
 			}
 			lastpos = ipos + matchStr.length;
-			hasScript = true;
 		}
-		if(hasScript){
-			staticStr = tplRaw.substring(lastpos);
-			tplSegment.push(parseTag + staticStr);
-		}
-		else{
-			console.log("no scripts:"+tplRaw);
-			tplSegment.push(parseTag + tplRaw);
-		}
-		//console.log(tplSegment);
-		var tpl2code = "var tpl2js = [];\n"; var segStr = '';
-		for(var segi in tplSegment){
-			segStr = tplSegment[segi];
-			if(segStr.indexOf(parseTag) == -1){
-				tpl2code += "\n" + segStr + "\n";
-			}
-			else{
-				segStr = segStr.replace(parseTag, '');
-				lastpos = 0;
-				//- parse tpl tags
-				while(match = tplRe.exec(segStr)){
-					ipos = match.index;
-					staticStr = segStr.substring(lastpos, ipos);
-					//console.log("bfr staticStr:"+staticStr);
-					if(true){
-						staticStr = staticStr.replace(/"/g, '\\"'); 
-						tpl2code += "\ttpl2js.push(\""+staticStr+"\");\n";
-						//console.log(match);
-						matchStr = match[0];
-						exprStr = match[1];
-						//console.log("aft exprStr:"+exprStr);
-						if(exprStr.indexOf('$') == 0){
-							tpl2code += "\ttpl2js.push("+exprStr+");\n";
-						}
-						else if(exprStr.match(/.*({|;|}).*/gm)){ // exceptions
-							tpl2code += "\ttpl2js.push(\""+matchStr+"\");\n";
-							console.log("illegal tpl sentence:["+matchStr+"] for containing {, }, ;. 201812012201.");
-						}
-						else{
-							if(exprStr.match(/(^( )?(if|for|switch|case|break|{|}))(.*)?/g)){
-								exprStr += '{';
-							}
-							else if(exprStr.indexOf('else') == 0){
-								exprStr = '}\n' + exprStr + '{';
-							}
-							else if(exprStr.indexOf('/') == 0){
-								exprStr = '}'; 
-							}
-							tpl2code += "\n" + exprStr + "\n";
-						}
-					}
-					lastpos = ipos + matchStr.length;
-				}
-				//- last static part
-				staticStr = segStr.substring(lastpos);
-				staticStr = staticStr.replace(/"/g, '\\"');
-				tpl2code += "\ttpl2js.push(\""+staticStr+"\");\n";
-			}
-		} // end of segment loop
-		
+		//- last static part
+		staticStr = tplRaw.substring(lastpos);
+		staticStr = staticStr.replace(/"/g, '\\"'); 
+		staticStr = staticStr.replace(/[\n|\r]/g, '');
+		tpl2code += "\ttpl2js.push(\""+staticStr+"\");\n";
 		tpl2code += "return tpl2js.join('');\n";
 		console.log("tpl2code:"+tpl2code);
 		//- merge data
