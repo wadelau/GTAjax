@@ -2,7 +2,7 @@
 javascript-based template engine:
 
 1) runtime in client-side, reduce computing render in server-side;
-2) language-independent, not-bound with backend scripts;
+2) language-independent, not-bound with backend scripts/languages;
 3) totally-isolated between MVC, data transfer with JSON;
 4) full-support with built-in logic and customerized functions, express powerfully;
 

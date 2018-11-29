@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
-<title>ĞÂÎÅÃ½Ìå - eophy tpltitle:{$title}</title>
-<meta name="keywords" content="ÓÆ·ÆÖĞ¹ú, eophy, tplkeyword:{$keywords}"/>
-<meta name="description" content="ÓÆ·ÆÖĞ¹ú, Æ·Î¶×î´¿Éú»î" />
+<meta http-equiv="content-type" content="text/html; charset=utf8" />
+<title>æ–°é—»åª’ä½“ - eophy tpltitle:{$title}</title>
+<meta name="keywords" content="æ‚ è²ä¸­å›½, eophy, tplkeyword:{$keywords}"/>
+<meta name="description" content="æ‚ è²ä¸­å›½, å“å‘³æœ€çº¯ç”Ÿæ´»" />
 <!-- <link type="image/png" rel="icon" href="favicon.png" /> -->
 <!-- 
 <link rel="stylesheet" type="text/css" href="./common.css" />
@@ -21,22 +21,22 @@
       <div class="logo"><a href="index.html">a logo</a></div>
       <div class="menu">
         <ul>
-          <li><a href="index.html">Ê×Ò³</a></li>
-          <li><a href="about_us.html">¹ØÓÚÎÒÃÇ</a>
+          <li><a href="index.html">é¦–é¡µ</a></li>
+          <li><a href="about_us.html">å…³äºæˆ‘ä»¬</a>
             <div class="submenu">
               <ul>
-                  <li class="title"><a href="about_us.html">¹«Ë¾½éÉÜ</a></li>
-                  <li class="title"><a href="about_us_2.html">Æ·ÅÆ½éÉÜ</a></li>
-                  <li class="title"><a href="about_us_3.html">Æ·ÅÆVIDEO</a></li>                  
+                  <li class="title"><a href="about_us.html">å…¬å¸ä»‹ç»</a></li>
+                  <li class="title"><a href="about_us_2.html">å“ç‰Œä»‹ç»</a></li>
+                  <li class="title"><a href="about_us_3.html">å“ç‰ŒVIDEO</a></li>                  
               </ul>
             </div>
           </li>
-          <li><a href="products.html">²úÆ·ÖĞĞÄ</a></li>
-          <li><a href="news.html" class="active">ĞÂÎÅÃ½Ìå</a></li>
-          <li><a href="active.html">Æ·ÅÆ»î¶¯</a></li>
-          <li><a href="faq.html">ÓªÑø×ÉÑ¯</a></li>
-          <li><a href="sale.html">ÊÛÂô×¨¹ñ</a></li>
-          <li><a href="shop.html">ÍøÂçÉÌ³Ç</a></li>
+          <li><a href="products.html">äº§å“ä¸­å¿ƒ</a></li>
+          <li><a href="news.html" class="active">æ–°é—»åª’ä½“</a></li>
+          <li><a href="active.html">å“ç‰Œæ´»åŠ¨</a></li>
+          <li><a href="faq.html">è¥å…»å’¨è¯¢</a></li>
+          <li><a href="sale.html">å”®å–ä¸“æŸœ</a></li>
+          <li><a href="shop.html">ç½‘ç»œå•†åŸ</a></li>
         </ul>
       </div>
     </div>
@@ -49,30 +49,31 @@
     <div class="homelist">
       <div class="box">
         <div class="news">
-          <div class="title">×îĞÂĞÂÎÅ</div>
+          <div class="title">æœ€æ–°æ–°é—»</div>
           <div class="content">
             <ul class="cont" tpldata="newslist::repeat::">
 			{for (var $k in $newslist)}
               <li><a class="btn_show" href="{$newslist[$k]['href']}">&gt; {$newslist[$k]['title']}
 					<a name="atag" tpldata="atag::updatevalue">{$newslist[$k]['title']}</a>
-			  </a></li>
+				</a>
+				{if $newslist[$k]['title'].length > 15 }
+					<span>Length is too long!</span>
+				{else}
+					<span>Length is okay.</span>
+				{/if}
+			  </li>
 			{/for}
               <!--
-			  <li><a class="btn_show" href="#1">&gt; ¸ü¸ßÉúÎïÀûÓÃ¶È£¨¸üºÃ¸ü¿ì±»ÎüÊÕ£©¡¢¸ß»îĞÔ³É·Ö¡¢²»´Ì¼¤³¦Î¸¡£</a></li>
+			  <li><a class="btn_show" href="#1">&gt; æ›´é«˜ç”Ÿç‰©åˆ©ç”¨åº¦ï¼ˆæ›´å¥½æ›´å¿«è¢«å¸æ”¶ï¼‰ã€é«˜æ´»æ€§æˆåˆ†ã€ä¸åˆºæ¿€è‚ èƒƒã€‚</a></li>
 				-->
 			</ul>
           </div>
           <div class="pages">
             <ul>
               <li><a href="javascript:;"> &lt; </a></li>
-              <li class="active"><a href="#"> 1 </a></li>
-              <li><a href="#"> 2 </a></li>
-              <li><a href="#"> 3 </a></li>
-              <li><a href="#"> 4 </a></li>
-              <li><a href="#"> ... </a></li>
               <li><a href="#"> 6 </a></li>
               <li><a href="javascript:;"> &gt; </a></li>
-              <li><a href="javascript:;" tpldata="newslist_nextpage::updateattribute::href" href="{$newslist_nextpage}"> ÏÂÒ»Ò³ </a></li>
+              <li><a href="javascript:;" tpldata="newslist_nextpage::updateattribute::href" href="{$newslist_nextpage}"> ä¸‹ä¸€é¡µ </a></li>
             </ul>
           </div>
         </div>
@@ -91,17 +92,17 @@
                 <li class="active"><a href="#"> 1 </a></li>
                 <li><a href="#"> 2 </a></li>
                 <li><a href="javascript:;"> &gt; </a></li>
-                <li><a href="javascript:;"> ÏÂÒ»Ò³ </a></li>
+                <li><a href="javascript:;"> ä¸‹ä¸€é¡µ </a></li>
               </ul>
             </div>
           </div>
 		  {/for}
           <div id="promptBox2">
             <a href="javascript:;" class="btn_close">X</a>
-            <div class="title">ÏºÇàËØÊÇÄ¿Ç°ÎªÖ¹×î¾ß´´ĞÂ¡¢×î¾ß¿¹Ñõ»¯ÄÜÁ¦µÄ¿¹Ñõ»¯¼Á#2</div>
+            <div class="title">è™¾é’ç´ æ˜¯ç›®å‰ä¸ºæ­¢æœ€å…·åˆ›æ–°ã€æœ€å…·æŠ—æ°§åŒ–èƒ½åŠ›çš„æŠ—æ°§åŒ–å‰‚#2</div>
             <div class="content">
               <p>
-BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢ÈËÔ±ÓĞ×Å¶şÊ®¶àÄêÓªÑøÓëÒ©¼Á¿ª·¢¾­Ñé£¬²úÆ·Æ·ÅÆÔÚÅ·ÖŞÓµÓĞ¼«¸ßµÄÖª Ãû¶ÈºÍÃÀÓş¶È¡£ÎªÁËÂú×ãÏû·ÑÕß¡°Ñ¡Ôñ×î¼ÑÌìÈ»ÓªÑøÆ·µÄ½¡¿µĞèÇó¡±¡£</p>
+BoP S.L. è”åˆå·´å¡ç½—é‚£å¤§å­¦å¥åº·åŒ»å­¦å®éªŒå®¤å…±åŒç ”å‘è¿‘ç™¾ç§å¤©ç„¶å¥åº·è¥å…»å“ï¼Œæˆ‘ ä»¬çš„ç ”å‘äººå‘˜æœ‰ç€äºŒåå¤šå¹´è¥å…»ä¸è¯å‰‚å¼€å‘ç»éªŒï¼Œäº§å“å“ç‰Œåœ¨æ¬§æ´²æ‹¥æœ‰æé«˜çš„çŸ¥ ååº¦å’Œç¾èª‰åº¦ã€‚ä¸ºäº†æ»¡è¶³æ¶ˆè´¹è€…â€œé€‰æ‹©æœ€ä½³å¤©ç„¶è¥å…»å“çš„å¥åº·éœ€æ±‚â€ã€‚</p>
             </div>
             <div class="pages">
               <ul>
@@ -136,7 +137,7 @@ BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢
     </div>
     <div class="clear"></div>
   <!-- mainbox -->
-  <script>
+  <script type="text/javascript">
 	if(1==1){console.log("1==1."+(new Date()));}
 	else if(2==2)
 	{if(3==3){console.log("3==3"+(new Date()));};}
@@ -161,31 +162,32 @@ BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢
       <div class="allright"> footer bottom </div>
       <div class="f_menu">
         <ul>
-          <li><a href="contact.html">ÁªÏµÎÒÃÇ</a></li>
-          <li><a href="legal.html">·¨ÂÉÉùÃ÷</a></li>
-          <li class="last"><a href="http://www.miit.gov.cn/" target="_blank" >¾©ICP±¸1204600ºÅ </a> &copy; <span tpldata="copyright_year::updatevalue::">{$copyright_year}</span> Eophy. ±£ÁôËùÓĞÈ¨Àû.</li>
+          <li><a href="contact.html">è”ç³»æˆ‘ä»¬</a></li>
+          <li><a href="legal.html">æ³•å¾‹å£°æ˜</a></li>
+          <li class="last"><a href="http://www.miit.gov.cn/" target="_blank" >äº¬ICPå¤‡1204600å· </a> &copy; <span tpldata="copyright_year::updatevalue::">{$copyright_year}</span> Eophy. ä¿ç•™æ‰€æœ‰æƒåˆ©.</li>
         </ul>
       </div>
       <div class="allright_2" onclick="javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}">footer logo</div>
     </div>
   </div>
 </div>
-<div id="pagejsondata">
+<!-- JSTpl json data, content below this line will not be parsed by JSTpl -->
+<div id="jstpljsondata">
 {
-	"pagetitle": "-¼ªÍŞ, GWA2 JTMPL-",
+	"pagetitle": "-å‰å¨ƒ, GWA2 JTMPL-",
 	"newslist": {
-		"0": {"title":"ÏºÇàËØÊÇÄ¿Ç°ÎªÖ¹×î¾ß´´ĞÂ¡¢×î¾ß¿¹Ñõ»¯ÄÜÁ¦µÄ¿¹Ñõ»¯¼Á", "href":"#11"},
-		"1": {"title":"ËùÓĞ²úÆ·¶¼º¬ÓĞÌìÈ»ÓêÉúºìÇòÔå£¨¸»º¬ÌìÈ»ÏºÇàËØ£©", "href":"#10"},
-		"2": {"title":"¸ü¸ßÉúÎïÀûÓÃ¶È£¨¸üºÃ¸ü¿ì±»ÎüÊÕ£©¡¢¸ß»îĞÔ³É·Ö¡¢²»´Ì¼¤³¦Î¸", "href":"#9"},
-		"3": {"title":"ÕæÊÇ¼«ºÃµÄÎ÷ºìÊÁ²úÆ·", "href":"#8"}
+		"0": {"title":"è™¾é’ç´ æ˜¯ç›®å‰ä¸ºæ­¢æœ€å…·åˆ›æ–°ã€æœ€å…·æŠ—æ°§åŒ–èƒ½åŠ›çš„æŠ—æ°§åŒ–å‰‚", "href":"#11"},
+		"1": {"title":"æ‰€æœ‰äº§å“éƒ½å«æœ‰å¤©ç„¶é›¨ç”Ÿçº¢çƒè—»ï¼ˆå¯Œå«å¤©ç„¶è™¾é’ç´ ï¼‰", "href":"#10"},
+		"2": {"title":"æ›´é«˜ç”Ÿç‰©åˆ©ç”¨åº¦ï¼ˆæ›´å¥½æ›´å¿«è¢«å¸æ”¶ï¼‰ã€é«˜æ´»æ€§æˆåˆ†ã€ä¸åˆºæ¿€è‚ èƒƒ", "href":"#9"},
+		"3": {"title":"çœŸæ˜¯æå¥½çš„è¥¿çº¢æŸ¿äº§å“", "href":"#8"}
 	},
 	"copyright_year": 2017,
 	"keywords": "Wadelau, GWA2, gwa2",
 	"newslist_nextpage": "https://ufqi.com/#newlist_nextpage_value",
 	"newscontentlist":{
-		"0":{"title":"ÏºÇàËØÊÇÄ¿Ç°ÎªÖ¹×î¾ß´´ĞÂ¡¢×î¾ß¿¹Ñõ»¯ÄÜÁ¦µÄ¿¹Ñõ»¯¼Á1", "content":"111BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢ÈËÔ±ÓĞ×Å¶şÊ®¶àÄêÓªÑøÓëÒ©¼Á¿ª·¢¾­Ñé£¬²úÆ·Æ·ÅÆÔÚÅ·ÖŞÓµÓĞ¼«¸ßµÄÖª Ãû¶ÈºÍÃÀÓş¶È¡£ÎªÁËÂú×ãÏû·ÑÕß¡°Ñ¡Ôñ×î¼ÑÌìÈ»ÓªÑøÆ·µÄ½¡¿µĞèÇó¡±", "pages":3},
-		"1":{"title":"ÏºÇàËØÊÇÄ¿Ç°ÎªÖ¹×î¾ß´´ĞÂ¡¢×î¾ß¿¹Ñõ»¯ÄÜÁ¦µÄ¿¹Ñõ»¯¼Á2", "content":"222BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢ÈËÔ±ÓĞ×Å¶şÊ®¶àÄêÓªÑøÓëÒ©¼Á¿ª·¢¾­Ñé£¬²úÆ·Æ·ÅÆÔÚÅ·ÖŞÓµÓĞ¼«¸ßµÄÖª Ãû¶ÈºÍÃÀÓş¶È¡£ÎªÁËÂú×ãÏû·ÑÕß¡°Ñ¡Ôñ×î¼ÑÌìÈ»ÓªÑøÆ·µÄ½¡¿µĞèÇó¡±", "pages":3},
-		"2":{"title":"ÏºÇàËØÊÇÄ¿Ç°ÎªÖ¹×î¾ß´´ĞÂ¡¢×î¾ß¿¹Ñõ»¯ÄÜÁ¦µÄ¿¹Ñõ»¯¼Á3", "content":"333BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢ÈËÔ±ÓĞ×Å¶şÊ®¶àÄêÓªÑøÓëÒ©¼Á¿ª·¢¾­Ñé£¬²úÆ·Æ·ÅÆÔÚÅ·ÖŞÓµÓĞ¼«¸ßµÄÖª Ãû¶ÈºÍÃÀÓş¶È¡£ÎªÁËÂú×ãÏû·ÑÕß¡°Ñ¡Ôñ×î¼ÑÌìÈ»ÓªÑøÆ·µÄ½¡¿µĞèÇó¡±", "pages":2}
+		"0":{"title":"è™¾é’ç´ æ˜¯ç›®å‰ä¸ºæ­¢æœ€å…·åˆ›æ–°ã€æœ€å…·æŠ—æ°§åŒ–èƒ½åŠ›çš„æŠ—æ°§åŒ–å‰‚1", "content":"111BoP S.L. è”åˆå·´å¡ç½—é‚£å¤§å­¦å¥åº·åŒ»å­¦å®éªŒå®¤å…±åŒç ”å‘è¿‘ç™¾ç§å¤©ç„¶å¥åº·è¥å…»å“ï¼Œæˆ‘ ä»¬çš„ç ”å‘äººå‘˜æœ‰ç€äºŒåå¤šå¹´è¥å…»ä¸è¯å‰‚å¼€å‘ç»éªŒï¼Œäº§å“å“ç‰Œåœ¨æ¬§æ´²æ‹¥æœ‰æé«˜çš„çŸ¥ ååº¦å’Œç¾èª‰åº¦ã€‚ä¸ºäº†æ»¡è¶³æ¶ˆè´¹è€…â€œé€‰æ‹©æœ€ä½³å¤©ç„¶è¥å…»å“çš„å¥åº·éœ€æ±‚â€", "pages":3},
+		"1":{"title":"è™¾é’ç´ æ˜¯ç›®å‰ä¸ºæ­¢æœ€å…·åˆ›æ–°ã€æœ€å…·æŠ—æ°§åŒ–èƒ½åŠ›çš„æŠ—æ°§åŒ–å‰‚2", "content":"222BoP S.L. è”åˆå·´å¡ç½—é‚£å¤§å­¦å¥åº·åŒ»å­¦å®éªŒå®¤å…±åŒç ”å‘è¿‘ç™¾ç§å¤©ç„¶å¥åº·è¥å…»å“ï¼Œæˆ‘ ä»¬çš„ç ”å‘äººå‘˜æœ‰ç€äºŒåå¤šå¹´è¥å…»ä¸è¯å‰‚å¼€å‘ç»éªŒï¼Œäº§å“å“ç‰Œåœ¨æ¬§æ´²æ‹¥æœ‰æé«˜çš„çŸ¥ ååº¦å’Œç¾èª‰åº¦ã€‚ä¸ºäº†æ»¡è¶³æ¶ˆè´¹è€…â€œé€‰æ‹©æœ€ä½³å¤©ç„¶è¥å…»å“çš„å¥åº·éœ€æ±‚â€", "pages":3},
+		"2":{"title":"è™¾é’ç´ æ˜¯ç›®å‰ä¸ºæ­¢æœ€å…·åˆ›æ–°ã€æœ€å…·æŠ—æ°§åŒ–èƒ½åŠ›çš„æŠ—æ°§åŒ–å‰‚3", "content":"333BoP S.L. è”åˆå·´å¡ç½—é‚£å¤§å­¦å¥åº·åŒ»å­¦å®éªŒå®¤å…±åŒç ”å‘è¿‘ç™¾ç§å¤©ç„¶å¥åº·è¥å…»å“ï¼Œæˆ‘ ä»¬çš„ç ”å‘äººå‘˜æœ‰ç€äºŒåå¤šå¹´è¥å…»ä¸è¯å‰‚å¼€å‘ç»éªŒï¼Œäº§å“å“ç‰Œåœ¨æ¬§æ´²æ‹¥æœ‰æé«˜çš„çŸ¥ ååº¦å’Œç¾èª‰åº¦ã€‚ä¸ºäº†æ»¡è¶³æ¶ˆè´¹è€…â€œé€‰æ‹©æœ€ä½³å¤©ç„¶è¥å…»å“çš„å¥åº·éœ€æ±‚â€", "pages":2}
 	},
 	"user": {
 		"feedback": 2,
@@ -196,152 +198,10 @@ BoP S.L. ÁªºÏ°ÍÈûÂŞÄÇ´óÑ§½¡¿µÒ½Ñ§ÊµÑéÊÒ¹²Í¬ÑĞ·¢½ü°ÙÖÖÌìÈ»½¡¿µÓªÑøÆ·£¬ÎÒ ÃÇµÄÑĞ·¢
 	"":""
 }
 </div>
-</body>
-<script type="text/javascript">
-//- JSTPL
-/* 
- * JavaScript-based HTML Template Engine , born with GWA2
- * @Xenxin@ufqi.com, Wadelau@hotmail.com
- * @Since Nov 11, 2018
- */
- 
-"use strict";
-
-(function(window){ //- anonymous func bgn
-
-	const parseTag = ':JSTPL:'; const tplVarTag = '$';
-	//- server response in json
-	var timeCostBgn = (new Date()).getTime();
-	var pageJsonElement = document.getElementById('pagejsondata');
-	var tplData = {};
-	if(pageJsonElement){ 
-		var tplDataStr = pageJsonElement.innerText; 
-		tplData = JSON.parse(tplDataStr);
-		if(!tplData['copyright_year']){ tplData['copyright_year'] = (new Date()).getYear(); }
-		//- parse json keys as global variables
-		for(var $k in tplData){
-			//console.log("k:"+$k+" v:"+tplData[$k]);
-			if($k != ''){
-				var $v = tplData[$k];
-				$k = tplVarTag + $k;
-				if(window){ window[$k] = $v; }else{ console.log('window undefined error.'); }
-			}
-		}
-		//- hide raw data
-		pageJsonElement.style.height = '0px';
-		pageJsonElement.style.visibility = 'hidden';
-	}
-	else{ console.log('pageJsonElement has error.'); }
-	
-	//- parse all tag blocks
-	console.log("aft parse copyright_year:"+$copyright_year);
-	var renderElement = function(window, document, tplHTML){
-		//var re = /\{([^\}]+)\}/gm, match, tplRaw, tplObject;
-		var tplRe = /\{((for|if|else|switch|break|case|\$|\/)[^}]*)\}/gm, match, tplRaw, tplObject;
-		tplObject = document.body || document; 
-		if(!tplHTML){
-			tplRaw = tplObject.innerHTML;
-			tplRaw = tplRaw.substring(0, tplRaw.indexOf('<div id="pagejsondata"')); // why this?
-		}
-		else{
-			tplRaw = tplHTML;
-		}
-		//- parse original scripts first
-		tplRaw = tplRaw.replace(/[\n|\r]/g, '');
-		var scriptRe = /<script[^>]*>(.*?)<\/script>/gm;
-		var hasScript = false; var tplSegment = [];
-		var lastpos = 0;
-		var staticStr, ipos, matchStr, exprStr;	
-		while(match = scriptRe.exec(tplRaw)){
-			//console.log(match);
-			ipos = match.index;
-			staticStr = tplRaw.substring(lastpos, ipos);
-			if(true){
-				//staticStr = staticStr.replace(/"/g, '\\"');
-				tplSegment.push(parseTag + staticStr);
-				matchStr = match[0];
-				exprStr = match[1];
-				tplSegment.push(exprStr);
-			}
-			lastpos = ipos + matchStr.length;
-			hasScript = true;
-		}
-		if(hasScript){
-			staticStr = tplRaw.substring(lastpos);
-			tplSegment.push(parseTag + staticStr);
-		}
-		else{
-			console.log("no scripts:"+tplRaw);
-			tplSegment.push(parseTag + tplRaw);
-		}
-		//console.log(tplSegment);
-		var tpl2code = "var tpl2js = [];\n"; var segStr = '';
-		for(var segi in tplSegment){
-			segStr = tplSegment[segi];
-			if(segStr.indexOf(parseTag) == -1){
-				tpl2code += "\n" + segStr + "\n";
-			}
-			else{
-				segStr = segStr.replace(parseTag, '');
-				lastpos = 0;
-				//- parse tpl tags
-				while(match = tplRe.exec(segStr)){
-					ipos = match.index;
-					staticStr = segStr.substring(lastpos, ipos);
-					//console.log("bfr staticStr:"+staticStr);
-					if(true){
-						staticStr = staticStr.replace(/"/g, '\\"'); 
-						tpl2code += "\ttpl2js.push(\""+staticStr+"\");\n";
-						//console.log(match);
-						matchStr = match[0];
-						exprStr = match[1];
-						//console.log("aft exprStr:"+exprStr);
-						if(exprStr.indexOf('$') == 0){
-							tpl2code += "\ttpl2js.push("+exprStr+");\n";
-						}
-						else if(exprStr.match(/.*({|;|}).*/gm)){ // exceptions
-							tpl2code += "\ttpl2js.push(\""+matchStr+"\");\n";
-							console.log("illegal tpl sentence:["+matchStr+"] for containing {, }, ;. 201812012201.");
-						}
-						else{
-							if(exprStr.match(/(^( )?(if|for|switch|case|break|{|}))(.*)?/g)){
-								exprStr += '{';
-							}
-							else if(exprStr.indexOf('else') == 0){
-								exprStr = '}\n' + exprStr + '{';
-							}
-							else if(exprStr.indexOf('/') == 0){
-								exprStr = '}'; 
-							}
-							tpl2code += "\n" + exprStr + "\n";
-						}
-					}
-					lastpos = ipos + matchStr.length;
-				}
-				//- last static part
-				staticStr = segStr.substring(lastpos);
-				staticStr = staticStr.replace(/"/g, '\\"');
-				tpl2code += "\ttpl2js.push(\""+staticStr+"\");\n";
-			}
-		} // end of segment loop
-		
-		tpl2code += "return tpl2js.join('');\n";
-		console.log("tpl2code:"+tpl2code);
-		//- merge data
-		var tplParse = (function(){ return new Function(tpl2code).apply(window); }).apply();
-		//console.log("tplParse:"+tplParse);
-		tplObject.innerHTML = tplParse;
-		
-	};
-	
-	//- compile
-	renderElement(window, document, null);
-	
-	//-
-	console.log("tpl parse time \
-		cost:"+((new Date()).getTime() - timeCostBgn));
-	
-})(window); //- anonymous func end
-
+<!-- jstpl codes -->
+<script>
+window.JSTpl = {'JsonDataId':'jstpljsondata', 'IsDebug':false}; // optional
 </script>
+<script type="text/javascript" src="jstpl.js"></script>
+</body>
 </html>
