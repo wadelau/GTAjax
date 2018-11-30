@@ -46,28 +46,6 @@ window.JSTpl = window.JSTplDefault;
 	const parseTag = window.JSTpl.ParseTag; const tplVarTag = window.JSTpl.TplVarTag;
 	const jsonDataId = window.JSTpl.JsonDataId; const logTag = window.JSTpl.LogTag+" ";
 	const isDebug = window.JSTpl.IsDebug;
-	const includeScriptTagBgn = 'JSTpl_INCLUDE_SCRIPT_BGN';
-	const includeScriptTagEnd = 'JSTpl_INCLUDE_SCRIPT_END';
-	
-	//- inner methods
-	//- append embedded scripts into current runtime
-	var _appendScript = function(myCode) {
-		var s = document.createElement('script');
-		s.type = 'text/javascript';
-		var code = myCode;
-		try{
-			s.appendChild(document.createTextNode(code));
-			document.body.appendChild(s);
-		} 
-		catch (e) {
-			s.text = code;
-			document.body.appendChild(s);
-		}
-		if(isDebug){
-			console.log('_appendScript: '+myCode+' has been appended.');
-		}
-	};
-	
 	//- server response in json, parse into global variables starting with tplVarTag
 	var timeCostBgn = (new Date()).getTime();
 	var pageJsonElement = document.getElementById(jsonDataId);
@@ -87,8 +65,8 @@ window.JSTpl = window.JSTplDefault;
 			}
 		}
 		//- hide raw data
-		//pageJsonElement.style.height = '0px';
-		//pageJsonElement.style.visibility = 'hidden'; // hide json data element
+		pageJsonElement.style.height = '0px';
+		pageJsonElement.style.visibility = 'hidden'; // hide json data element
 	}
 	else{ console.log(logTag+'pageJsonElement:['+jsonDataId+'] has error. 201812010927'); }
 	
@@ -118,74 +96,57 @@ window.JSTpl = window.JSTplDefault;
 			tplRaw = tplHTML;
 		}
 		//console.log(tplRaw);
-		
+		//- parse original scripts first
 		tplRaw = tplRaw.replace(/[\n|\r]/g, '');
-		var tplSegment = []; var lastpos = 0;
-		var staticStr, ipos, matchStr, exprStr;	
-		
-		//- parse include parts
-		var includeRe = /\{include [file|content]*="([^\}]*?)"\}/gm;
-		var segi, segStr, tplRawNew, tmpCont;
-		lastpos = 0; tplRawNew = tplRaw;
-		while(match = includeRe.exec(tplRaw)){
-			//console.log(match);
-			//ipos = match.index;
-			//staticStr = tplRaw.substring(lastpos, ipos);
-			matchStr = match[0]; exprStr = match[1];
-			tmpCont = (new Function("return "+exprStr+";")).apply();
-			tmpCont = tmpCont.replace(/[\n|\r]/g, '');
-			if(tmpCont.indexOf('<script') > -1){
-				tmpCont = includeScriptTagBgn + tmpCont + includeScriptTagEnd;
-			}
-			tplRawNew = tplRawNew.replace(matchStr, tmpCont);
-			//console.log("updt tmpCont:"+tmpCont);
-			//lastpos = ipos + matchStr.length;
-		}
-		tplRaw = tplRawNew;
-		//console.log(tplRaw);
-		
-		//- parse original scripts
 		var scriptRe = /<script[^>]*>(.*?)<\/script>/gm;
-		var hasScript = false; var isIncludeScript = false;
+		var hasScript = false; var tplSegment = [];
+		var lastpos = 0;
+		var staticStr, ipos, matchStr, exprStr;	
 		while(match = scriptRe.exec(tplRaw)){
 			//console.log(match);
 			ipos = match.index;
 			staticStr = tplRaw.substring(lastpos, ipos);
-			if(staticStr.indexOf(includeScriptTagBgn) > -1){
-				isIncludeScript = true;
-				staticStr = staticStr.replace(includeScriptTagBgn, '');
-				//console.log('includeScript bgn:');
-			}
+			tplSegment.push(parseTag + staticStr);
 			matchStr = match[0];
 			exprStr = match[1];
-			if(isIncludeScript){
-				_appendScript(exprStr);
-			}
-			if(staticStr.indexOf(includeScriptTagEnd) > -1){
-				//console.log("includeScript end:");
-				isIncludeScript = false;
-				staticStr = staticStr.replace(includeScriptTagEnd, '');
-			}
-			tplSegment.push(parseTag + staticStr);
 			tplSegment.push(exprStr);
 			lastpos = ipos + matchStr.length;
 			hasScript = true;
 		}
 		if(hasScript){
 			staticStr = tplRaw.substring(lastpos); // remainings
-			if(staticStr.indexOf(includeScriptTagEnd) > -1){
-				//console.log("includeScript end:");
-				isIncludeScript = false;
-				staticStr = staticStr.replace(includeScriptTagEnd, '');
-			}
 			tplSegment.push(parseTag + staticStr);
 		}
 		else{
-			if(isDebug){ console.log(logTag + "no scripts:"+tplRaw); }
+			if(isDebug){
+				console.log(logTag + "no scripts:"+tplRaw);
+			}
 			tplSegment.push(parseTag + tplRaw);
 		}
+		//- parse include parts
+		var includeRe = /\{include [file|content]*="([^\}]*?)"\}/gm;
+		var segi, segStr, segStrNew, tmpCont;
+		for(segi in tplSegment){
+			segStr = tplSegment[segi];
+			if(segStr.indexOf(parseTag) == -1){ //- original scripts
+				//console.log("original scripts:"+segStr+" skip...");
+			}
+			else{
+				segStr = segStr.replace(parseTag, '');
+				lastpos = 0; segStrNew = segStr;
+				while(match = includeRe.exec(segStr)){
+					//console.log(match);
+					matchStr = match[0]; exprStr = match[1];
+					tmpCont = (new Function("return "+exprStr+";")).apply();
+					tmpCont = tmpCont.replace(/[\n|\r]/g, '');
+					segStrNew = segStrNew.replace(matchStr, tmpCont);
+					//console.log("updt segStr:"+segStrNew+" tmpCont:"+tmpCont);
+				}
+				//- restore for further tpl parse
+				tplSegment[segi] = parseTag + segStrNew;
+			}
+		}
 		//console.log(tplSegment);
-		
 		//- main body for tags interpret
 		var tpl2code = "var tpl2js = [];\n"; segStr = ''; segi = 0;
 		var blockBeginRe, tmpmatch;
@@ -197,7 +158,7 @@ window.JSTpl = window.JSTplDefault;
 			else{
 				segStr = segStr.replace(parseTag, '');
 				lastpos = 0; 
-				//- parse all tpl tags
+				//- parse tpl tags
 				while(match = tplRe.exec(segStr)){
 					ipos = match.index;
 					staticStr = segStr.substring(lastpos, ipos);
@@ -213,10 +174,8 @@ window.JSTpl = window.JSTplDefault;
 					else if(exprStr.match(/.*({|;|}).*/gm)
 						&& exprStr.indexOf('t;') == -1){ // exceptions, &gt; &lt;
 						tpl2code += "\ttpl2js.push(\""+matchStr+"\");\n";
-						if(isDebug){
 						console.log(logTag + "illegal tpl sentence:["+matchStr
 							+"] for containing {, }, ;.  skip... 201812012201.");
-						}
 					}
 					else{
 						if(exprStr.match(/(^( )?(if|for|while|switch|case|break))(.*)?/g)){
@@ -224,10 +183,8 @@ window.JSTpl = window.JSTplDefault;
 							if(tmpmatch = blockBeginRe.exec(exprStr)){
 								//console.log(tmpmatch);
 								if(tmpmatch[2].indexOf('(') == -1){
-									if(isDebug){
 									console.log(logTag+"illegal tpl sentence:["
 										+exprStr+"] but compatible.");
-									}
 									exprStr = tmpmatch[1] + '(' + tmpmatch[2] + ')';
 								}
 							}
