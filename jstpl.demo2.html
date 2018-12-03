@@ -10,6 +10,18 @@
 {include file="$pageheader"}
 
 {include file="$model"}
+{$i=1}
+{var $jstr='this is a j string'}
+<span>call a built-in func:
+{$jstr.substring(0, 12)}
+</span>
+{while $i<10}
+	<li> line {$i} </li>
+	{$i++}
+{/while}
+<span> try to call a func named 'aFunc':
+{$aFunc()}
+</span>
 <script>
 	if(1==1){
 		console.log("additional original scripts before jsondata will be invoked twice....."
@@ -46,7 +58,7 @@
 	
 	"model":"&lt;div class=\"news\"&gt;           &lt;div class=\"title\"&gt;最新新闻&lt;/div&gt;           &lt;div class=\"content\"&gt;             &lt;ul class=\"cont\" tpldata=\"newslist::repeat::\"&gt; 			{for (var $k in $newslist)}               &lt;li&gt;&lt;a class=\"btn_show\" href=\"{$newslist[$k]['href']}\"&gt;&gt; {$newslist[$k]['title']} 					&lt;a name=\"atag\" tpldata=\"atag::updatevalue\"&gt;{$newslist[$k]['title']}&lt;/a&gt; 				&lt;/a&gt; 				{if $newslist[$k]['title'].length &gt; 15 } 					&lt;span&gt;Length is too long!&lt;/span&gt; 				{else} 					&lt;span&gt;Length is okay.&lt;/span&gt; 				{/if} 			  &lt;/li&gt; 			{/for}               &lt;!-- 			  &lt;li&gt;&lt;a class=\"btn_show\" href=\"#1\"&gt;&gt; 更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃。&lt;/a&gt;&lt;/li&gt; 				--&gt; 			&lt;/ul&gt;           &lt;/div&gt;           &lt;div class=\"pages\"&gt;             &lt;ul&gt;               &lt;li&gt;&lt;a href=\"javascript:;\"&gt; &lt; &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"#\"&gt; 6 &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"javascript:;\"&gt; &gt; &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"javascript:;\" tpldata=\"newslist_nextpage::updateattribute::href\" href=\"{$newslist_nextpage}\"&gt; 下一页 &lt;/a&gt;&lt;/li&gt;             &lt;/ul&gt;           &lt;/div&gt;         &lt;/div&gt;",
 	
-	"pagefooter":"&lt;div id=\"footer\"&gt;   &lt;script&gt; 	if(1==1){console.log(\"2nd 1==1.\"+(new Date()));} 	else if(2==2) 	{if(3==3){console.log(\"2nd 3==3\"+(new Date()));};} 	function aFunc(){if (1==1){console.log(\"this is in aFunc \"+(new Date()));}}   &lt;/script&gt;     &lt;div class=\"f_box\"&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"http://ufqi.com/\"&gt; base code &lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"javascript:;\"&gt; wenxin logo&lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"allright\"&gt; footer bottom &lt;/div&gt;       &lt;div class=\"f_menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"contact.html\"&gt;联系我们&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"legal.html\"&gt;法律声明&lt;/a&gt;&lt;/li&gt;           &lt;li class=\"last\"&gt;&lt;a href=\"http://www.miit.gov.cn/\" target=\"_blank\" &gt;京ICP备1204600号 &lt;/a&gt; &copy; &lt;span tpldata=\"copyright_year::updatevalue::\"&gt;{$copyright_year}&lt;/span&gt; UFQI. 保留所有权利.&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;       &lt;div class=\"allright_2\" onclick=\"javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}\"&gt;footer logo&lt;/div&gt;     &lt;/div&gt;   &lt;/div&gt;"
+	"pagefooter":"&lt;div id=\"footer\"&gt;   &lt;script&gt; 	if(1==1){console.log(\"2nd 1==1.\"+(new Date()));} 	else if(2==2) 	{if(3==3){console.log(\"2nd 3==3\"+(new Date()));};} 	function aFunc(){if (1==1){console.log(\"this is in aFunc \"+(new Date())); return ('now:'+(new Date()));}}   &lt;/script&gt;     &lt;div class=\"f_box\"&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"http://ufqi.com/\"&gt; base code &lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"javascript:;\"&gt; wenxin logo&lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"allright\"&gt; footer bottom &lt;/div&gt;       &lt;div class=\"f_menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"contact.html\"&gt;联系我们&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"legal.html\"&gt;法律声明&lt;/a&gt;&lt;/li&gt;           &lt;li class=\"last\"&gt;&lt;a href=\"http://www.miit.gov.cn/\" target=\"_blank\" &gt;京ICP备1204600号 &lt;/a&gt; &copy; &lt;span tpldata=\"copyright_year::updatevalue::\"&gt;{$copyright_year}&lt;/span&gt; UFQI. 保留所有权利.&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;       &lt;div class=\"allright_2\" onclick=\"javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}\"&gt;footer logo&lt;/div&gt;     &lt;/div&gt;   &lt;/div&gt;"
 }
 </div>
 
@@ -64,7 +76,7 @@
 </script>
 <!-- jstpl codes -->
 <script>
-window.JSTpl = {'JsonDataId':'jstpljsondata', 'IsDebug': false}; // optional
+window.JSTpl = {'JsonDataId':'jstpljsondata', 'IsDebug': true}; // optional
 </script>
 <script type="text/javascript" src="jstpl.js"></script>
 </body>
