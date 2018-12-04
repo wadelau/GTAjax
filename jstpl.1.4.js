@@ -50,7 +50,7 @@ if(window.JSTpl){
 }
 window.JSTpl = window.JSTplDefault;
 
-//- ----------------- MAGIC START -----------------
+//- MAGIC START
 (function(window){ //- anonymous JSTpl main func bgn
 
 	//- global object
@@ -137,7 +137,9 @@ window.JSTpl = window.JSTplDefault;
 				console.log(logTag + "jsonDataId:["+jsonDataId+"] has error.201812011028");
 			}
 		}
-		else{ tplRaw = tplHTML; }
+		else{
+			tplRaw = tplHTML;
+		}
 		//console.log(tplRaw);
 		tplRaw = tplRaw.replace(/[\n|\r]/g, '');
 		
@@ -308,9 +310,9 @@ window.JSTpl = window.JSTplDefault;
 		//- append to tpl2code
 		tpl2codeArr.push("return tpl2js.join('');");
 		tpl2code = tpl2codeArr.join("\n"); tpl2codeArr = null;
-		tpl2code = "try{" + tpl2code + "\n}\ncatch(e1635){ console.log(\""
-			+ logTag + "code exec failed.\"); console.log(e1635); "
-			+ " return ''+JSON.stringify(e1635); }\n";
+		tpl2code = "try{"+tpl2code+"\n}\ncatch(e1635){ console.log(\""
+			+logTag+"code exec failed.\"); console.log(e1635); "
+			+" return ''+JSON.stringify(e1635); }\n";
 		
 		//- merge data and compile
 		var tplParse = '';		
@@ -331,4 +333,4 @@ window.JSTpl = window.JSTplDefault;
 	
 })(window); //- anonymous JSTpl main func end
 
-//- ----------------- MAGIC COMPLETE -----------------
+//- MAGIC COMPLETE
