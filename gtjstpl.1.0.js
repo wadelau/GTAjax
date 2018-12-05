@@ -1,69 +1,74 @@
-
-//- JSTpl
+//-
+//- GTJSTpl
+//- --- The template grammar, syntax and its engine ---
 /* 
- * JavaScript-based HTML Template Engine , born with GWA2
+ * (G)enerally-(T)argeted
+ * (J)ava(S)cript-based HTML (T)em(pl)ate Engine
+ * 基于JavaScript通用HTML页面模板引擎
+ * --- 模板语法, 格式及解析引擎 ---
  *
+ * @Born with GWA2， General Web Application Architecture
  * @Xenxin@ufqi.com, Wadelau@hotmail.com
  * @Since Oct 10, 2018
  * @Ver 1.1
  * 
+ *** Philosophy:
  * God's return to God, Caesar's return to Caesar; 
  * the backend runs in background, the frontend is executed in foreground.
  * 上帝的归上帝, 凯撒的归凯撒; 后端的归后台, 前端的归前台。
  * 
- * Pros:
+ *** Pros:
  1) Runtime in client-side, reduce computing render in server-side;
  2) Language-independent, not-bound with backend scripts/languages;
  3) Totally-isolated between MVC, data transfer with JSON;
  4) Full-support with built-in logic and customerized JavaScript functions;
  5) No more tags language to be learned, just JavaScript;
  ...
- * History:
+ *** History:
  * Nov 24, 2018, +include with scripts
  * Dec 02, 2018, +variables, +functions
  * Dec 04, 2018, +tpl2code string to array, +foreach
  * Dec 08, 2018, +else if
  */
 
-"use strict";
+"use strict"; //- we are serious
 
-//- JSTpl config, modify at your conveniences
+//- GTJSTpl configs, modify at your conveniences
 if(!window){ window = {}; } //- why this?
-window.JSTplDefault = {
+window.GTJSTplDefault = {
 	"TplVarTag": "$", //- variables from response starting with this, e.g. $pageTitle
-	"JsonDataId": "jstpljsondata", //- an html element id which holds server response json data
-	"LogTag": "JSTpl", //- inner usage
+	"JsonDataId": "gtjstpljsondata", //- an html element id which holds server response json data
+	"LogTag": "GTJSTpl", //- inner usage
 	"ParseTag": "__JSTPL__",  //- inner usage
-	"IncludeScriptTag": "JSTpl_INCLUDE_SCRIPT", //- inner usage
+	"IncludeScriptTag": "GTJSTpl_INCLUDE_SCRIPT", //- inner usage
 	"IsDebug": false, //- verbose output in console
 };
 
 /*
- * JSTpl runtime 
+ * GTJSTpl runtime 
  * ----------------- !!! Please do not edit any code below this line !!! -----------------
  */
- 
  //- parent's configs will override defaults
-if(window.JSTpl){
-	for(var $k in window.JSTpl){
-		window.JSTplDefault[$k] = window.JSTpl[$k];
+if(window.GTJSTpl){
+	for(var $k in window.GTJSTpl){
+		window.GTJSTplDefault[$k] = window.GTJSTpl[$k];
 	}
 }
-window.JSTpl = window.JSTplDefault;
-
+window.GTJSTpl = window.GTJSTplDefault;
 //- ----------------- MAGIC START -----------------
-(function(window){ //- anonymous JSTpl main func bgn
+(function(window){ //- anonymous GTJSTpl main func bgn
 
 	//- global object
-	if(!window.JSTpl){
-		var errMsg="JSTpl undefined. 201812011128"; 
+	if(!window.GTJSTpl){
+		var errMsg="GTJSTpl undefined. 201812011128"; 
 		console.log(errMsg); return errMsg;
 	}
 	
 	//- constants
-	const parseTag = window.JSTpl.ParseTag; const tplVarTag = window.JSTpl.TplVarTag;
-	const jsonDataId = window.JSTpl.JsonDataId; const logTag = window.JSTpl.LogTag+" ";
-	const isDebug = window.JSTpl.IsDebug; const includeScriptTag = window.JSTpl.IncludeScriptTag;
+	const parseTag = window.GTJSTpl.ParseTag; const tplVarTag = window.GTJSTpl.TplVarTag;
+	const jsonDataId = window.GTJSTpl.JsonDataId; const logTag = window.GTJSTpl.LogTag+" ";
+	const isDebug = window.GTJSTpl.IsDebug; 
+	const includeScriptTag = window.GTJSTpl.IncludeScriptTag;
 	const includeScriptTagBgn = includeScriptTag + '_BGN';
 	const includeScriptTagEnd = includeScriptTag + '_END';
 	
@@ -289,7 +294,7 @@ window.JSTpl = window.JSTplDefault;
 							tmpIfPos = exprStr.indexOf('if ');
 							if( tmpIfPos > -1 && exprStr.indexOf('(') < 0){
 								if(isDebug){
-								console.log(logTag+" found illegal tpl:"+exprStr
+								console.log(logTag+"illegal tpl sentence:"+exprStr
 									+" but compatible.");
 								}
 								exprStr = exprStr.substr(0, tmpIfPos+3) 
@@ -335,13 +340,12 @@ window.JSTpl = window.JSTplDefault;
 		
 	};
 	
-	//- invoke the magic JSTpl
+	//- invoke the magic GTJSTpl
 	renderTemplate(window, document, null);
 	if(isDebug){ 
 		console.log(logTag + "parse time \
 			cost: "+(((new Date()).getTime() - timeCostBgn)/1000) + "s");
 	}
 	
-})(window); //- anonymous JSTpl main func end
-
+})(window); //- anonymous GTJSTpl main func end
 //- ----------------- MAGIC COMPLETE -----------------
