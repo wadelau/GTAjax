@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf8" />
+<!--SERVER_SIDE_SETTINGS-->
+</head>
+<body><!-- contents of the body will be parsed and compiled by GTJSTpl -->
+<!-- <a></a> --><a name="firsta"{if $user['feedback'] == 2} class="firstaclass"{/if}></a>
+
+{include file="$pageheader"}
+
+{include file="$model"}
+{$i=Math.random()}
+{var $jstr='this is a j string'}
+
+<span>call a built-in func:
+{$jstr.substring(0, 12)}
+</span>
+
+{while $i<10}
+	<li> line {$i} </li>
+	{$i++}
+{/while}
+
+<span> try to call a func named 'aFunc':
+{$aFunc($i)}
+</span>
+
+<span> try to list an associative list:
+{for (var $k in $userlist)}
+	<li>Id:{$userlist[$k]['id']}, Name:{$userlist[$k]['name']}</li>
+{/for}
+</span>
+
+<span> 2nd, try to list an associative list:
+{for var $k in $userlist}
+	<li>Id:{$userlist[$k]['id']}, Name:{$userlist[$k]['name']}</li>
+{/for}
+</span>
+
+<span
+	{if $user['feedback']==2} class="2"{else} class="3"{/if}
+	> 3rd, try to list an associative list:
+{foreach $userlist as $k}
+	<li onclick="javascript:bFunc('{$k}');">{$k} Id:{$userlist[$k]['id']}, Name:{$userlist[$k]['name']}</li>
+{/foreach}
+</span>
+
+<span> try to branch-if-else: 
+	{$i=Math.random()}
+	{if $i < 0.3}
+		<li>{$i} is lt 0.3</li>
+	{else if $i<0.5 }
+		<li>{$i} is lt 0.5</li>
+	{else}
+		<li>{$i} is gt 0.5</li>
+	{/if}
+</span>
+<script>
+	if(1==1){
+		console.log("additional original scripts before jsondata will be invoked twice....."
+			+ (new Date()));
+	}
+</script>
+{include content="$pagefooter"}
+
+<!-- GTJSTpl json data, content below this line will not be parsed by GTJSTpl -->
+<div id="gtjstpljsondata">
+{
+	"pagetitle": "-吉娃, GWA2 JTMPL-",
+	"newslist": {
+		"0": {"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂", "href":"#11"},
+		"1": {"title":"所有产品都含有天然雨生红球藻（富含天然虾青素）", "href":"#10"},
+		"2": {"title":"更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃", "href":"#9"},
+		"3": {"title":"真是极好的西红柿产品", "href":"#8"}
+	},
+	"copyright_year": 2017,
+	"keywords": "Wadelau, GWA2, gwa2",
+	"newslist_nextpage": "https://ufqi.com/#newlist_nextpage_value",
+	"newscontentlist":{
+		"0":{"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂1", "content":"111BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":3},
+		"1":{"title":"最具抗氧化能力的抗氧化剂2", "content":"222BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":3},
+		"2":{"title":"巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品", "content":"333BoP S.L. 联合，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":2}
+	},
+	"user": {
+		"feedback": 2,
+		"iname": {"surname":"Wadelau", "familyname":"Lau"},
+		"age": "33"
+	},
+	"userlist": {
+		"usera": {"id":1234, "name":"Alice张"},
+		"userb": {"id": 4567, "name":"Bob李"}
+	},
+	"atag": "Xenxin\"s Tag",
+	"pageheader":"&lt;div id=\"header\"&gt;     &lt;div class=\"h_box\"&gt;       &lt;div class=\"logo\"&gt;&lt;a href=\"index.html\"&gt;a logo&lt;/a&gt;&lt;/div&gt;       &lt;div class=\"menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"index.html\"&gt;首页&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"about_us.html\"&gt;关于我们&lt;/a&gt;             &lt;div class=\"submenu\"&gt;               &lt;ul&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"about_us.html\"&gt;公司介绍&lt;/a&gt;&lt;/li&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"about_us_2.html\"&gt;品牌介绍&lt;/a&gt;&lt;/li&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"about_us_3.html\"&gt;品牌VIDEO&lt;/a&gt;&lt;/li&gt;                                 &lt;/ul&gt;             &lt;/div&gt;           &lt;/li&gt;           &lt;li&gt;&lt;a href=\"products.html\"&gt;产品中心&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"news.html\" class=\"active\"&gt;新闻媒体&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"active.html\"&gt;品牌活动&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"faq.html\"&gt;营养咨询&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"sale.html\"&gt;售卖专柜&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"shop.html\"&gt;网络商城&lt;/a&gt;&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;     &lt;/div&gt;     &lt;div class=\"clear\"&gt;&lt;/div&gt;   &lt;/div&gt;",
+	
+	"model":"&lt;div class=\"news\"&gt;           &lt;div class=\"title\"&gt;最新新闻&lt;/div&gt;           &lt;div class=\"content\"&gt;             &lt;ul class=\"cont\" tpldata=\"newslist::repeat::\"&gt; 			{for (var $k in $newslist)}               &lt;li&gt;&lt;a class=\"btn_show\" href=\"{$newslist[$k]['href']}\"&gt;&gt; {$newslist[$k]['title']} 					&lt;a name=\"atag\" tpldata=\"atag::updatevalue\"&gt;{$newslist[$k]['title']}&lt;/a&gt; 				&lt;/a&gt; 				{if $newslist[$k]['title'].length &gt; 15 } 					&lt;span&gt;Length is too long!&lt;/span&gt; 				{else} 					&lt;span&gt;Length is okay.&lt;/span&gt; 				{/if} 			  &lt;/li&gt; 			{/for}               &lt;!-- 			  &lt;li&gt;&lt;a class=\"btn_show\" href=\"#1\"&gt;&gt; 更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃。&lt;/a&gt;&lt;/li&gt; 				--&gt; 			&lt;/ul&gt;           &lt;/div&gt;           &lt;div class=\"pages\"&gt;             &lt;ul&gt;               &lt;li&gt;&lt;a href=\"javascript:;\"&gt; &lt; &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"#\"&gt; 6 &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"javascript:;\"&gt; &gt; &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"javascript:;\" tpldata=\"newslist_nextpage::updateattribute::href\" href=\"{$newslist_nextpage}\"&gt; 下一页 &lt;/a&gt;&lt;/li&gt;             &lt;/ul&gt;           &lt;/div&gt;         &lt;/div&gt;",
+	
+	"pagefooter":"&lt;div id=\"footer\"&gt;   &lt;script&gt; 	if(1==1){console.log(\"2nd 1==1.\"+(new Date()));} 	else if(2==2) 	{if(3==3){console.log(\"2nd 3==3\"+(new Date()));};}; function aFunc(myi){if (1==1){console.log(\"this is in aFunc \"+(new Date())+''+myi); return ('now:'+(new Date())+''+myi);}}   &lt;/script&gt;     &lt;div class=\"f_box\"&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"http://ufqi.com/\"&gt; base code &lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"javascript:;\"&gt; wenxin logo&lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"allright\"&gt; footer bottom &lt;/div&gt;       &lt;div class=\"f_menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"contact.html\"&gt;联系我们&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"legal.html\"&gt;法律声明&lt;/a&gt;&lt;/li&gt;           &lt;li class=\"last\"&gt;&lt;a href=\"http://www.miit.gov.cn/\" target=\"_blank\" &gt;京ICP备1204600号 &lt;/a&gt; &copy; &lt;span tpldata=\"copyright_year::updatevalue::\"&gt;{$copyright_year}&lt;/span&gt; UFQI. 保留所有权利.&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;       &lt;div class=\"allright_2\" onclick=\"javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}\"&gt;footer logo&lt;/div&gt;     &lt;/div&gt;   &lt;/div&gt;"
+}
+</div>
+
+<!-- 
+@todo include with scripts
+	---- done, Dec 04, 2018 
+-->
+<script>
+if(1==1){
+	console.log("additional original scripts after jsondata will be invoked only once....."
+		+ (new Date()));
+}
+
+//-
+function bFunc(myi){
+	console.log("this is in bFunc "+(new Date())+''+myi); return ('now:'+(new Date())+''+myi);
+}
+	
+</script>
+<!-- gtjstpl codes -->
+<script>
+window.GTJSTpl = {'JsonDataId':'gtjstpljsondata', 'IsDebug': true}; // optional
+</script>
+<script type="text/javascript" src="gtjstpl.js"></script>
+<noscript>JavaScript Required.</noscript>
+</body>
+</html>

@@ -5,7 +5,7 @@
 <!--SERVER_SIDE_SETTINGS-->
 </head>
 <body><!-- contents of the body will be parsed and compiled by GTJSTpl -->
-<!-- <a></a> --><a name="firsta"></a>
+<!-- <a></a> --><a name="firsta"{if $user['feedback'] == 2} class="firstaclass"{/if}></a>
 
 {include file="$pageheader"}
 
@@ -38,7 +38,9 @@
 {/for}
 </span>
 
-<span> 3rd, try to list an associative list:
+<span
+	{if $user['feedback']==2} class="2"{else} class="3"{/if}
+	> 3rd, try to list an associative list:
 {foreach $userlist as $k}
 	<li onclick="javascript:bFunc('{$k}');">{$k} Id:{$userlist[$k]['id']}, Name:{$userlist[$k]['name']}</li>
 {/foreach}
@@ -116,8 +118,9 @@ function bFunc(myi){
 </script>
 <!-- gtjstpl codes -->
 <script>
-window.GTJSTpl = {'JsonDataId':'gtjstpljsondata', 'IsDebug': false}; // optional
+window.GTJSTpl = {'JsonDataId':'gtjstpljsondata', 'IsDebug': true}; // optional
 </script>
 <script type="text/javascript" src="gtjstpl.js"></script>
+<noscript>JavaScript Required.</noscript>
 </body>
 </html>
