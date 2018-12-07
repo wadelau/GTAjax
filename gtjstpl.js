@@ -22,14 +22,14 @@
  1) Runtime in client-side, reduce computing render in server-side;
  2) Language-independent, not-bound with backend scripts/languages;
  3) Totally-isolated between MVC, data transfer with JSON;
- 4) Full-support with built-in logic and customerized JavaScript functions;
+ 4) Full-support template tags with built-in logic and customerized JavaScript functions;
  5) No more tags language to be learned, just JavaScript;
  ...
  *** History:
  * Nov 24, 2018, +include with scripts
  * Dec 02, 2018, +variables, +functions
  * Dec 04, 2018, +tpl2code string to array, +foreach
- * Dec 08, 2018, +else if
+ * Dec 08, 2018, +else if, +embedded tpl in <>
  */
 
 "use strict"; //- we are serious
@@ -83,7 +83,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 			s.appendChild(document.createTextNode(code));
 			document.body.appendChild(s);
 		} 
-		catch (e) {
+		catch(e){
 			s.text = code;
 			document.body.appendChild(s);
 		}
@@ -98,7 +98,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 	var pageJsonElement = document.getElementById(jsonDataId);
 	var tplData = {};
 	if(pageJsonElement){ 
-		var tplDataStr = pageJsonElement.innerText; 
+		var tplDataStr = pageJsonElement.innerText;
 		try{
 			tplData = JSON.parse(tplDataStr);
 		}
@@ -116,10 +116,11 @@ window.GTJSTpl = window.GTJSTplDefault;
 			}
 		}
 		//- hide raw data
-		pageJsonElement.style.height = '0px';
+		//pageJsonElement.style.height = '0px';
 		pageJsonElement.style.visibility = 'hidden'; // hide json data element
+		tplDataStr = null;
 	}
-	else{ 
+	else{
 		console.log(logTag+'pageJsonElement:['+jsonDataId+'] has error. 201812010927'); 
 	}
 	
@@ -155,6 +156,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 		var tplSegment = []; var lastpos = 0;
 		var staticStr, ipos, matchStr, exprStr;	
 		
+		//- prepare-1
 		//- parse include parts
 		var includeRe = /\{include [file|content]*="([^\}]*?)"\}/gm;
 		var segi, segStr, tplRawNew, tmpCont;
@@ -170,28 +172,30 @@ window.GTJSTpl = window.GTJSTplDefault;
 			tplRawNew = tplRawNew.replace(matchStr, tmpCont);
 		}
 		tplRaw = tplRawNew;
-		//console.log(tplRaw);
+		console.log(tplRaw);
 		
+		//- parepare-2
 		//- fix innerHTML bug {if="" for tpl embedded in <>
 		var embeddedRe = /([^<]*)(if|for|while|switch)\}=""/gm;
 		lastpos = 0; tplRawNew = tplRaw;
 		while(match = embeddedRe.exec(tplRaw)){
-			//console.log(match);
 			matchStr = match[0]; exprStr = matchStr;
 			exprStr = exprStr.replace(/if=""/g, 'if')
 				.replace(/\}=""/g, '}')
 				.replace(/\{="" /g, '{/')
 				.replace(/="=["]*/g, '==')
 				.replace(/\}"/g, '}');
-			//console.log(exprStr);
+			console.log(match); console.log(exprStr);
 			tplRawNew = tplRawNew.replace(matchStr, exprStr);
 			if(isDebug){
-				console.log(logTag+"found embedded tpl sentence:["+matchStr+"] but compatible partially.");
+				console.log(logTag+"found embedded tpl sentence:["+matchStr
+					+"] but compatible partially.");
 			}
 		}
-		tplRaw = tplRawNew;
+		tplRaw = tplRawNew; tplRawNew = null;
 		//console.log(tplRaw);
 		
+		//- prepare-3
 		//- parse original scripts
 		var scriptRe = /<script[^>]*>(.*?)<\/script>/gm;
 		var hasScript = false; var isIncludeScript = false;
@@ -231,7 +235,8 @@ window.GTJSTpl = window.GTJSTplDefault;
 		}
 		//console.log(tplSegment);
 		
-		//- main body for tpl tags interpret
+		//- main body 
+		//- loop over tplSegment for tags interpret
 		var tpl2code, tpl2codeArr; segStr = ''; segi = 0;
 		tpl2codeArr = []; tpl2codeArr.push("var tpl2js = [];");
 		var blockBeginRe, tmpmatch, needSemiComma, containsDot, containsBracket;
@@ -241,11 +246,10 @@ window.GTJSTpl = window.GTJSTplDefault;
 			if(segStr.indexOf(parseTag) == -1){ //- original scripts
 				tpl2codeArr.push("\n" + segStr);
 			}
-			else{
-				//- mixed tpl content
+			else{ //- mixed tpl content
 				segStr = segStr.replace(parseTag, '');
 				lastpos = 0; 
-				//- parse all tpl tags
+				//- parse all tpl tags with match
 				while(match = tplRe.exec(segStr)){
 					ipos = match.index;
 					staticStr = segStr.substring(lastpos, ipos);
@@ -257,8 +261,9 @@ window.GTJSTpl = window.GTJSTplDefault;
 					matchStr = match[0]; containsBracket = false;
 					exprStr = match[1]; containsDot = false; containsEqual = false;
 					if(exprStr.indexOf(tplVarTag) == 0){
-						//- functions call
+						//- functions and variables
 						if(exprStr.match(/(\+|\-|\*|\/|=|~|!|\()/gm)){
+							//- functions call
 							if(exprStr.indexOf('(') > -1){ containsBracket = true;} 
 							if(exprStr.indexOf('.') > -1){ containsDot = true; }
 							if(exprStr.indexOf('=') > -1){ containsEqual = true; }
@@ -282,7 +287,8 @@ window.GTJSTpl = window.GTJSTplDefault;
 						}
 					}
 					else if(exprStr.match(/.*({|;|}).*/gm)
-						&& exprStr.indexOf('t;') == -1){ // exceptions, &gt; &lt;
+						&& exprStr.indexOf('t;') == -1){ 
+						// exceptions, &gt; &lt;
 						tpl2codeArr.push("\ttpl2js.push(\""+matchStr+"\");");
 						if(isDebug){
 						console.log(logTag + "illegal tpl sentence:["+matchStr
@@ -294,6 +300,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 						if(exprStr.match(/(^( )?(if|for|while|switch|case|break))(.*)?/g)){
 							blockBeginRe = /^(if|for|while|switch)(.*)/gm; // why re-init?
 							if(tmpmatch = blockBeginRe.exec(exprStr)){
+								//- blocks begin
 								//console.log(tmpmatch);
 								if(tmpmatch[2].indexOf('each ') == 0){ //- foreach
 									tmpArr = tmpmatch[2].substring(5).split(' as ');
@@ -345,10 +352,10 @@ window.GTJSTpl = window.GTJSTplDefault;
 			}
 		} // end of loop over tplSegment
 		
-		//- append to tpl2code
+		//- append returns to tpl2code
 		tpl2codeArr.push("return tpl2js.join('');");
 		tpl2code = tpl2codeArr.join("\n"); tpl2codeArr = null;
-		tpl2code = "try{" + tpl2code + "\n}\ncatch(e1635){ console.log(\""
+		tpl2code = "try{ " + tpl2code + "\n}\ncatch(e1635){ console.log(\""
 			+ logTag + "code exec failed.\"); console.log(e1635); "
 			+ " return ''+JSON.stringify(e1635); }\n";
 		
@@ -358,7 +365,9 @@ window.GTJSTpl = window.GTJSTplDefault;
 		//tplParse = (function(){ return (new Function(tpl2code).apply(window)); }).apply();
 		tplParse = (new Function(tpl2code)).apply(window);
 		if(isDebug){ console.log("tplParse:"+tplParse); }
-		tplObject.innerHTML = tplParse; tpl2code = null;
+		tplObject.innerHTML = tplParse; 
+		tpl2code = null; tpl2codeArr = null; 
+		tplRaw = null; tplParse = null; tplSegment = null;
 		
 	};
 	
