@@ -4,11 +4,12 @@ GTJSTpl found embedded tpl sentence:[
 
 
 
-a name="firsta"{if $user['feedback'] == 2} class="secondaclass"{/if}
 
-a name="firsta" {if="" $user['feedback']="=" 2}="" class="secondaclass" {="" if}=""
+a name="firsta"{if $user['feedback'] eq 2} class="secondaclass"{/if}
 
-a name="firsta" class="secondaclass" if}="" {="" 2}="" $user['feedback']="=" {if=""
+	a name="firsta" {if="" $user['feedback']="" eq="" 2}="" class="secondaclass" {="" if}=""
+
+	a name="firsta" class="secondaclass" if}="" {="" 2}="" $user['feedback']="" {if="" eq=""
 
 
 
@@ -18,11 +19,12 @@ gtjstpl.js:191 GTJSTpl found embedded tpl sentence:[
 
 
 
-span {if $user['feedback']==2} class="2"{else} class="3"{/if}
+span {if $user['feedback'] lt 2} class="2"{else} class="3"{/if}
 
-span {if="" $user['feedback']="=2}" class="2" {else}="" {="" if}=""
+	span {if="" $user['feedback']="" lt="" 2}="" class="2" {else}="" {="" if}=""
+	
+	span class="2" if}="" {="" 2}="" $user['feedback']="" {if="" {else}="" lt=""
 
-span class="2" if}="" {="" $user['feedback']="=2}" {if="" {else}=""
 
 
 

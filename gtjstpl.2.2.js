@@ -148,7 +148,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 				if(tmpval.match(/(eq|lt|gt)/)){ 
 					tmpop = tmpmatch[4]; tmpval = tmpmatch[5];
 				}
-				tmpval = tmpval.replace(/\}$/, '').replace(/\} /, '');
+				tmpval = tmpval.replace(/\}$/, '');
 				tmpval = tmpval=='' ? '0' : tmpval;
 				//- why 0?
 				var newExprStr = tmpmatch[1]+" {if "+tmpmatch[3]+" "+tmpop+" "+tmpval+"} "
