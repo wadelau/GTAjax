@@ -6,12 +6,18 @@
 </head>
 <body><!-- contents of the body will be parsed and compiled by GTJSTpl -->
 <!-- <a></a> -->
+<!--
+{literal}
+	{if $user['feedback'] == 2}
+		{$user['age']}
+	{/if}
+{/literal}
+-->
+<span {if $user['feedback'] lt 3 } class="cls2"{else} class="cls3"{/if}> A Top Span. </span>
 
 <a name="firsta"{if $user['feedback'] eq "fb2"} class="cls2"{/if}>2nd ANAME</a>
 
-<a name="firstb" {if $user['feedback'] eq 2} class="cls2"{/if}>ANAME</a>
-
-<span{if $user['feedback'] lt 3 } class="cls2"{else} class="cls3"{/if}> A Top Span. </span>
+<a name="firstb" {if $user['feedback'] eq 2} class="cls3"{/if}>ANAME</a>
 
 <span {if $user['feedback'] gt 4} class="cls2"{else} class="cls3"{/if}> 2nd Top Span. </span>
 	
@@ -124,7 +130,7 @@ function bFunc(myi){
 </script>
 <!-- gtjstpl codes -->
 <script>
-window.GTJSTpl = {'JsonDataId':'gtjstpljsondata', 'IsDebug': true}; // optional
+window.GTJSTpl = {'JsonDataId':'gtjstpljsondata', 'IsDebug': false}; // optional
 </script>
 <script type="text/javascript" src="gtjstpl.js"></script>
 <noscript>JavaScript Required.</noscript>

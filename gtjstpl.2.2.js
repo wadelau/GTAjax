@@ -30,6 +30,7 @@
  * Dec 02, 2018, +variables, +functions
  * Dec 04, 2018, +tpl2code string to array, +foreach
  * Dec 08, 2018, +else if, +embedded tpl in <>
+ * Dec 16, 2018, +literal
  */
 
 "use strict"; //- we are serious
@@ -59,16 +60,17 @@ window.GTJSTpl = window.GTJSTplDefault;
 //- ----------------- MAGIC START -----------------
 (function(window){ //- anonymous GTJSTpl main func bgn
 
-	//- global object
+	//- global objects
 	if(!window.GTJSTpl){
 		var errMsg="GTJSTpl undefined. 201812011128"; 
 		console.log(errMsg); return errMsg;
 	}
+	var timeCostBgn = (new Date()).getTime();
 	
 	//- constants
-	const parseTag = window.GTJSTpl.ParseTag; const tplVarTag = window.GTJSTpl.TplVarTag;
-	const jsonDataId = window.GTJSTpl.JsonDataId; const logTag = window.GTJSTpl.LogTag+" ";
-	const isDebug = window.GTJSTpl.IsDebug; 
+	const parseTag = window.GTJSTpl.ParseTag; const unParseTag = 'UN' + parseTag;
+	const tplVarTag = window.GTJSTpl.TplVarTag; const jsonDataId = window.GTJSTpl.JsonDataId; 
+	const logTag = window.GTJSTpl.LogTag+" "; const isDebug = window.GTJSTpl.IsDebug; 
 	const includeScriptTag = window.GTJSTpl.IncludeScriptTag;
 	const includeScriptTagBgn = includeScriptTag + '_BGN';
 	const includeScriptTagEnd = includeScriptTag + '_END';
@@ -92,6 +94,41 @@ window.GTJSTpl = window.GTJSTplDefault;
 		}
 	};
 	
+	//- inner methods
+	//- search fields within a regexp match
+	var _searchField = function(matchList){
+		var fields = {};
+		for(var $k in matchList){
+			var tmpval = matchList[$k];
+			if($k>=0 && $k != 'input' && $k != 'index'){
+				tmpval = tmpval.replace(/\{\/(.+)/, '$1');
+				if(tmpval.match(/(lt|gt|eq)/g)){
+					fields['op'] = tmpval;
+				}
+				else if(tmpval.match(/=/g)){
+					fields['result'] = tmpval;
+				}
+				else if(tmpval.match(/\$/g)){
+					fields['condition'] = tmpval;
+				}
+				else{
+					if(!tmpval.match(/(else|if)/) 
+						&& tmpval != '{' && tmpval != '}'){
+						tmpval = tmpval=='' ? '0' : tmpval; //- why 0?
+						fields['val'] = tmpval.replace(/\{[\/]*(.+)\}/, '$1')
+							.replace(/\}[ ]*/, '');
+					}
+					else{
+						//console.log('unkown matchTag: k:'+$k+' val:'+tmpval);
+					}
+				}
+			}
+		}
+		//console.log(matchList); console.log(fields);
+		return fields;
+	};
+	
+	//- inner methods
 	//- parse tags embedded in an html element
 	var _parseTagInElement = function(exprStr, match){
 		//- only if support?
@@ -100,77 +137,77 @@ window.GTJSTpl = window.GTJSTplDefault;
 			.replace(/\{="" /g, '{/')
 			.replace(/="" (eq|lt|gt)=""/, ' $1')
 			.replace(/=""/g, '');
-		var startIfPos = exprStr.indexOf('{if');
-		var endIfPos = exprStr.indexOf('if}');
 		var hasInsertSpace = false; var tmpmatch;
 		if(exprStr.match(/([\S]+)\{if/g)){
 			exprStr = exprStr.replace(/([\S]+)\{if/g, '$1 {if');
 			hasInsertSpace = true;
+			console.log(logTag+" found illegal tpl sentence:["+match[0]
+				+"], consider add space between element attribute name and tpl tag."
+				+ "["+exprStr+"]");
 		}
-		if(hasInsertSpace){
-			var regD = /(.*) \{if ([\S]+) if\} ([\S]+)[ \{else\}]*( [(eq|lt|gt)]*)(.*)/gm;
-			if(tmpmatch=regD.exec(exprStr)){
-				console.log(tmpmatch);
-				tmpmatch[3] = tmpmatch[3].replace(/\{\/(.+)/, '$1');
-				tmpmatch[5] = tmpmatch[5].replace(/\}$/, '')
-					.replace(/\} /, '');
-				tmpmatch[5] = tmpmatch[5]=='' ? '0' : tmpmatch[5];
-				//- why 0?
-				var newExprStr = tmpmatch[1]+" {if "+tmpmatch[3]+" "+tmpmatch[4]+" "+tmpmatch[5]+" } "
-					+tmpmatch[2]+" {/if}";
-				console.log('regD ifStart:'+startIfPos+' ifEnd:'+endIfPos
-					+' matched! reverse:['+newExprStr+']');
-				exprStr = newExprStr;
-			}
-			else{
-				//console.log("not matched! exprStr:["+exprStr+"]");
-			}
-		}
-		else if(endIfPos > 0 && startIfPos > 0 && startIfPos > endIfPos){
-			//- supposed in MS Edge
-			console.log(logTag+"found unsorted tpl sentence:["+exprStr+"] supposed in MS-Edge.");
-			//- so weird!
-			var regA = /(.*) ([\S]+) if\} ([\S]+) ([\S]+) \{if[ \{else\}]*( [(eq|lt|gt)]*)/gm;
-			var regB = /(.*) ([\S]+) if\} ([\S]+) \{if[ \{else\}]*( [(eq|lt|gt)]*)(.*)/gm;
-			if(tmpmatch=regA.exec(exprStr)){
-				console.log(tmpmatch);
-				tmpmatch[3] = tmpmatch[3].replace(/\{\/(.+)\}/, '$1');
-				var newExprStr = tmpmatch[1]+" {if "+tmpmatch[4]+" "+tmpmatch[5]+" "
-					+tmpmatch[3]+"} "+tmpmatch[2]+" {/if}";
-				console.log('regA ifStart:'+startIfPos+' ifEnd:'+endIfPos
-					+' matched! reverse:['+newExprStr+']');
-				exprStr = newExprStr;
-			}
-			else if(tmpmatch=regB.exec(exprStr)){
-				console.log(tmpmatch);
-				tmpmatch[3] = tmpmatch[3].replace(/\{\/(.+)/, '$1');
-				var tmpop = tmpmatch[5]; var tmpval = tmpmatch[4];
-				if(tmpval.match(/(eq|lt|gt)/)){ 
-					tmpop = tmpmatch[4]; tmpval = tmpmatch[5];
+		var startIfPos = exprStr.indexOf('{if');
+		var endIfPos = exprStr.indexOf('if}'); var needSortElement = false;
+		if(hasInsertSpace){ //- test whether unsorted or not
+			var tagsBfrEnd = ['else', 'lt', 'gt', 'eq', '}', '{/'];
+			var tmpArr = exprStr.split(' ');
+			var tmpEndIfi = 0; var tmptagi = 0;
+			for(var $k in tmpArr){
+				for(var $l in tagsBfrEnd){
+					if(tmpArr[$k].indexOf(tagsBfrEnd[$l]) > -1){
+						tmptagi = $k;
+					}
+					else if(tmpArr[$k] == 'if}'){
+						tmpEndIfi = $k;
+					}
+					if(tmpEndIfi > tmptagi){
+						needSortElement = true; break;
+					}
 				}
-				tmpval = tmpval.replace(/\}$/, '');
-				tmpval = tmpval=='' ? '0' : tmpval;
-				//- why 0?
-				var newExprStr = tmpmatch[1]+" {if "+tmpmatch[3]+" "+tmpop+" "+tmpval+"} "
-					+tmpmatch[2]+" {/if}";
-				console.log('regB ifStart:'+startIfPos+' ifEnd:'+endIfPos
-					+' matched! reverse:['+newExprStr+']');
-				exprStr = newExprStr;
+				if(needSortElement){ break; }
 			}
-			else{
-				console.log("unmatched exprStr:["+exprStr+"].");
+		}
+		//- parse all unsort tpl list
+		if((endIfPos > 0 && startIfPos > 0 && startIfPos > endIfPos)
+			|| needSortElement){
+			//- supposed in MS Edge
+			var tmpi = 0;
+			var parts = exprStr.split(' ');
+			for(var $k in parts){
+				if(parts[$k] == 'if}' || parts[$k] == '{if'){
+					tmpi = $k;
+					break;
+				}
 			}
+			tmpi--; if(hasInsertSpace){ tmpi = 1; } 
+			var parts2 = []; var parts3 = [];
+			for(var $k=tmpi; $k<parts.length; $k++){
+				parts2.push(parts[$k]);
+			}
+			for(var $k=0; $k<tmpi; $k++){
+				parts3.push(parts[$k]);
+			}
+			//parts2.sort(); console.log(parts2); console.log(parts3);
+			if(isDebug){
+			console.log("exprStr:["+exprStr+"] tmpi:"+tmpi+" aft sorted:["+parts2.join(' ')+"]");
+			}
+			exprStr = parts2.join(' '); // left parts3
+			var fields = _searchField(parts2);
+			var newExprStr = " {if "+fields['condition']+" "+fields['op']+" "+fields['val']+" } "
+				+fields['result']+" {/if}";
+			newExprStr = parts3.join(' ') + ' ' + newExprStr;  // add parts3
+			console.log('regX ifStart:'+startIfPos+' ifEnd:'+endIfPos
+				+' matched! reverse:['+newExprStr+'] in MS Edge.');
+			exprStr = newExprStr;
 		}
 		else{
 			//- supposed in Chrome/Firefox...
-			console.log(logTag+'sorted tpl sentence:['+exprStr+']');
+			if(isDebug){ console.log(logTag+'sorted tpl sentence:['+exprStr+'] in Chrome-likes.'); }
 		}
 		return exprStr;
-	}
+	};
 	
-	//- server response in json, 
+	//- trans server response in json, 
 	//- parse it into global variables starting with this tplVarTag
-	var timeCostBgn = (new Date()).getTime();
 	var pageJsonElement = document.getElementById(jsonDataId);
 	var tplData = {};
 	if(pageJsonElement){ 
@@ -201,9 +238,10 @@ window.GTJSTpl = window.GTJSTplDefault;
 	}
 	
 	//- parse all tag blocks
+	//- main function
 	//console.log("aft parse copyright_year:"+$copyright_year);
 	var renderTemplate = function(window, document, tplHTML){
-		//var re = /\{([^\}]+)\}/gm, match, tplRaw, tplObject;
+		
 		var tplRe = /\{((for|if|while|else|switch|break|case|\$|\/|var|let)[^}]*)\}/gm;
 		
 		//- collect tpl content
@@ -248,11 +286,10 @@ window.GTJSTpl = window.GTJSTplDefault;
 			tplRawNew = tplRawNew.replace(matchStr, tmpCont);
 		}
 		tplRaw = tplRawNew;
-		console.log(tplRaw);
+		//console.log(tplRaw);
 		
 		//- parepare-2
 		//- fix innerHTML bug {if="" for tpl embedded in <>
-		//var embeddedRe = /([^<]*)(if|for|while|switch)\}=""/gm;
 		var embeddedRe = /([^<]*)(if|for|while|switch|else|eq|lt|gt|\d|")[\}]*=""/gm;
 		lastpos = 0; tplRawNew = tplRaw;
 		while(match = embeddedRe.exec(tplRaw)){
@@ -267,43 +304,78 @@ window.GTJSTpl = window.GTJSTplDefault;
 		tplRaw = tplRawNew; tplRawNew = null;
 		//console.log(tplRaw);
 		
-		//- prepare-3
-		//- parse original scripts
-		var scriptRe = /<script[^>]*>(.*?)<\/script>/gm;
-		var hasScript = false; var isIncludeScript = false;
-		while(match = scriptRe.exec(tplRaw)){
-			//console.log(match);
-			ipos = match.index;
-			staticStr = tplRaw.substring(lastpos, ipos);
-			if(staticStr.indexOf(includeScriptTagBgn) > -1){
-				isIncludeScript = true;
-				staticStr = staticStr.replace(includeScriptTagBgn, '');
+		//- parepare-3
+		//- parse literal scripts
+		var literalRe = /\{literal\}(.*?)\{\/literal\}/gm;
+		var tplSegmentPre = []; var hasLiteralScript = false; lastpos = 0;
+		if(tplRaw.indexOf('{literal}') > -1){
+			while(match = literalRe.exec(tplRaw)){
+				//console.log(match);
+				ipos = match.index;
+				staticStr = tplRaw.substring(lastpos, ipos);
+				matchStr = match[0]; exprStr = match[1];
+				tplSegmentPre.push(staticStr);
+				tplSegmentPre.push(unParseTag + exprStr);
+				lastpos = ipos + matchStr.length;
+				hasLiteralScript = true;
 			}
-			matchStr = match[0];
-			exprStr = match[1];
-			if(isIncludeScript){
-				_appendScript(exprStr);
-			}
-			if(staticStr.indexOf(includeScriptTagEnd) > -1){
-				isIncludeScript = false;
-				staticStr = staticStr.replace(includeScriptTagEnd, '');
-			}
-			tplSegment.push(parseTag + staticStr);
-			tplSegment.push(exprStr);
-			lastpos = ipos + matchStr.length;
-			hasScript = true;
 		}
-		if(hasScript){
+		if(hasLiteralScript){
 			staticStr = tplRaw.substring(lastpos); // remainings
-			if(staticStr.indexOf(includeScriptTagEnd) > -1){
-				isIncludeScript = false;
-				staticStr = staticStr.replace(includeScriptTagEnd, '');
-			}
-			tplSegment.push(parseTag + staticStr);
+			tplSegmentPre.push(staticStr);
 		}
 		else{
-			if(isDebug){ console.log(logTag + "no scripts:"+tplRaw); }
-			tplSegment.push(parseTag + tplRaw);
+			if(isDebug){ console.log(logTag + "no literals:"+tplRaw); }
+			tplSegmentPre.push(tplRaw);
+		}
+		//console.log(tplSegmentPre);
+		
+		//- prepare-4
+		//- parse original scripts
+		var scriptRe = /<script[^>]*>(.*?)<\/script>/gm;
+		var hasScript = false; var isIncludeScript = false; 
+		for(var $prei in tplSegmentPre){
+			tplRawNew = tplSegmentPre[$prei];
+			if(tplRawNew.indexOf(unParseTag) > -1){ // literal scripts
+				tplSegment.push(tplRawNew);
+			}
+			else{
+				lastpos = 0;
+				while(match = scriptRe.exec(tplRawNew)){
+					//console.log(match);
+					ipos = match.index;
+					staticStr = tplRawNew.substring(lastpos, ipos);
+					if(staticStr.indexOf(includeScriptTagBgn) > -1){
+						isIncludeScript = true;
+						staticStr = staticStr.replace(includeScriptTagBgn, '');
+					}
+					matchStr = match[0];
+					exprStr = match[1];
+					if(isIncludeScript){
+						_appendScript(exprStr);
+					}
+					if(staticStr.indexOf(includeScriptTagEnd) > -1){
+						isIncludeScript = false;
+						staticStr = staticStr.replace(includeScriptTagEnd, '');
+					}
+					tplSegment.push(parseTag + staticStr);
+					tplSegment.push(exprStr);
+					lastpos = ipos + matchStr.length;
+					hasScript = true;
+				}
+				if(hasScript){
+					staticStr = tplRawNew.substring(lastpos); // remainings
+					if(staticStr.indexOf(includeScriptTagEnd) > -1){
+						isIncludeScript = false;
+						staticStr = staticStr.replace(includeScriptTagEnd, '');
+					}
+					tplSegment.push(parseTag + staticStr);
+				}
+				else{
+					if(isDebug){ console.log(logTag + "no scripts:"+tplRawNew); }
+					tplSegment.push(parseTag + tplRawNew);
+				}
+			}
 		}
 		//console.log(tplSegment);
 		
@@ -315,13 +387,17 @@ window.GTJSTpl = window.GTJSTplDefault;
 		var tmpArr, containsEqual, tmpIfPos;
 		for(segi in tplSegment){ //- loop over segments besides originals
 			segStr = tplSegment[segi];
-			if(segStr.indexOf(parseTag) == -1){ //- original scripts
+			if(segStr.indexOf(unParseTag) > -1){ //- literal scripts
+				segStr = segStr.replace(unParseTag, '');
+				tpl2codeArr.push("\ttpl2js.push(\""+segStr+"\");");
+				//console.log(segStr);
+			}
+			else if(segStr.indexOf(parseTag) == -1){ //- original scripts
 				tpl2codeArr.push("\n" + segStr);
 			}
 			else{ //- mixed tpl content
-				segStr = segStr.replace(parseTag, '');
-				lastpos = 0; 
 				//- parse all tpl tags with match
+				segStr = segStr.replace(parseTag, ''); lastpos = 0;
 				while(match = tplRe.exec(segStr)){
 					ipos = match.index;
 					staticStr = segStr.substring(lastpos, ipos);
@@ -412,7 +488,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 						}
 						if(needSemiComma){ exprStr += ';'; }
 						if(exprStr.match(/ (eq|lt|gt) /)){
-							exprStr = exprStr.replace('eq', '=')
+							exprStr = exprStr.replace('eq', '==')
 								.replace('lt', '<')
 								.replace('gt', '>');
 						}
@@ -427,7 +503,8 @@ window.GTJSTpl = window.GTJSTplDefault;
 					tpl2codeArr.push("\ttpl2js.push(\""+staticStr+"\");");
 				}
 			}
-		} // end of loop over tplSegment
+		}
+		// end of loop over tplSegment
 		
 		//- append returns to tpl2code
 		tpl2codeArr.push("return tpl2js.join('');");
@@ -449,11 +526,13 @@ window.GTJSTpl = window.GTJSTplDefault;
 	};
 	
 	//- invoke the magic GTJSTpl
-	renderTemplate(window, document, null);
-	if(isDebug){ 
-		console.log(logTag + "parse time \
-			cost: "+(((new Date()).getTime() - timeCostBgn)/1000) + "s");
-	}
+	//window.onload = function(){ //- wait longer?
+		renderTemplate(window, document, null);
+		if(isDebug){ 
+			console.log(logTag + "parse time \
+				cost: "+(((new Date()).getTime() - timeCostBgn)/1000) + "s");
+		}
+	//};
 	
 })(window); //- anonymous GTJSTpl main func end
 //- ----------------- MAGIC COMPLETE -----------------
