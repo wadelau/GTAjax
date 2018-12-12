@@ -3,44 +3,43 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf8" />
 <!--SERVER_SIDE_SETTINGS-->
+<meta name="keywords" content="GTJSTpl, GTJST, Template, template engine, JavaScript, cross-platform, 模板, 模板引擎"/>
+<meta name="description" content="GTJSTpl is a JavaScript-based, generally-targeted template language and engine. GTJSTpl是一种基于JavaScript的HTML模板语言及模板引擎."/>
+<title>GTJSTpl, Generally-Targeted JavaScript Template</title>
 </head>
 <body><!-- contents of the body will be parsed and compiled by GTJSTpl -->
-<!-- <a></a> -->
-<!--
-{literal}
-	{if $user['feedback'] == 2}
-		{$user['age']}
-	{/if}
-{/literal}
--->
-<span {if $user['feedback'] lt 3 } class="cls2"{else} class="cls3"{/if}> A Top Span. </span>
-
-<a name="firsta"{if $user['feedback'] eq "fb2"} class="cls2"{/if}>2nd ANAME</a>
-
-<a name="firstb" {if $user['feedback'] eq 2} class="cls3"{/if}>ANAME</a>
-
-<span {if $user['feedback'] gt 4} class="cls2"{else} class="cls3"{/if}> 2nd Top Span. </span>
-	
+<style>span{ padding-top:30px; } a{ text-decoration:none; }</style>	
 {include file="$pageheader"}
 
 {include file="$model"}
+
 {$i=Math.random()}
 {var $jstr='this is a j string'}
 
-<span>call a built-in func:
-{$jstr.substring(0, 12)}
-</span>
+<hr/>
+<div id="mynewscontentlist">特征优势/Features
+{foreach $newscontentlist as $page}
+	<ul><li><a href="#">{$newscontentlist[$page]['title']}</a></li></ul>
+{/foreach}
+</div>
+<hr/>
 
-{while $i<10}
-	<li> line {$i} </li>
-	{$i++}
-{/while}
-
-<span> try to call a func named 'aFunc':
+<span> Try to call a func named 'aFunc':
 {$aFunc($i)}
 </span>
 
-<span> try to list an associative list:
+<span>Call a built-in func:
+{$jstr.substring(0, 12)}
+</span>
+
+<span id="randnum5"> <br/> Give random numbers:
+{while $i<5}
+	<li> line {$i} </li>
+	{$i++}
+{/while}
+</span>
+
+<span> <br/>Try to list an associative list:
 {for (var $k in $userlist)}
 	<li>Id:{$userlist[$k]['id']}, Name:{$userlist[$k]['name']}</li>
 {/for}
@@ -74,25 +73,53 @@
 			+ (new Date()));
 	}
 </script>
-{include content="$pagefooter"}
 
+<hr/>
+<!-- <a></a> -->
+<!-- -->
+<span id="literalarea">
+Try literal:<br/>
+{literal}
+	{if $user['feedback'] == 2}
+		{$user['age']}
+	{/if}
+{/literal}
+</span>
+<br/>
+<div id="embeddedarea">
+<span {if $user['feedback'] lt 3 } class="cls2"{else} class="cls3"{/if}> This is A SPAN with embedded Tpl sentence. </span>
+<br/>
+<a name="firsta"{if $user['feedback'] eq "fb2"} class="cls2"{/if}>This is a name.</a>
+
+<a name="firstb" {if $user['feedback'] eq 2} class="cls3"{/if}> This is a name, 2nd. </a>
+<br/>
+<span {if $user['feedback'] gt 4} class="cls2"{else} class="cls3"{/if}> This is a span, 2nd. </span>
+
+</div>
+
+<hr/>
+
+{include content="$pagefooter"}
+<!-- "copyright_year": 2017, -->
 <!-- GTJSTpl json data, content below this line will not be parsed by GTJSTpl -->
 <div id="gtjstpljsondata">
 {
-	"pagetitle": "-吉娃, GWA2 JTMPL-",
+	"pagetitle": "-gtjstpl, GTJSTpl",
 	"newslist": {
-		"0": {"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂", "href":"#11"},
-		"1": {"title":"所有产品都含有天然雨生红球藻（富含天然虾青素）", "href":"#10"},
-		"2": {"title":"更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃", "href":"#9"},
-		"3": {"title":"真是极好的西红柿产品", "href":"#8"}
+		"0": {"title":"基于JavaScript通用HTML页面模板引擎", "href":"#11"},
+		"1": {"title":"GTJSTpl模板语义, 语法及解析引擎", "href":"#10"},
+		"2": {"title":"God's return to God, Caesar's return to Caesar; ", "href":"#9"},
+		"3": {"title":"the backend runs in background, the frontend is executed in foreground.", "href":"#8"},
+		"4": {"title":"上帝的归上帝, 凯撒的归凯撒; 后端的归后台, 前端的归前台", "href":"#7"}
 	},
-	"copyright_year": 2017,
-	"keywords": "Wadelau, GWA2, gwa2",
+	"keywords": "Wadelau, Xenxin, GTJSTpl",
 	"newslist_nextpage": "https://ufqi.com/#newlist_nextpage_value",
 	"newscontentlist":{
-		"0":{"title":"虾青素是目前为止最具创新、最具抗氧化能力的抗氧化剂1", "content":"111BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":3},
-		"1":{"title":"最具抗氧化能力的抗氧化剂2", "content":"222BoP S.L. 联合巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":3},
-		"2":{"title":"巴塞罗那大学健康医学实验室共同研发近百种天然健康营养品", "content":"333BoP S.L. 联合，我 们的研发人员有着二十多年营养与药剂开发经验，产品品牌在欧洲拥有极高的知 名度和美誉度。为了满足消费者“选择最佳天然营养品的健康需求”", "pages":2}
+		"0":{"title":"Runtime in client-side, reduce computing render in server-side; 客户端解析，节省服务器端计算资源;", "content":"Runtime in client-side, reduce computing render in server-side;", "pages":3},
+		"1":{"title":"Language-independent, not-bound with backend scripts/languages; 模板语言独立，不与服务器端资源做任何绑定", "content":"Language-independent, not-bound with backend scripts/languages;", "pages":3},
+		"2":{"title":"Totally-isolated between MVC, data transfer with JSON;  纯粹的MVC，层间数据用JSON格式传递", "content":"Totally-isolated between MVC, data transfer with JSON;", "pages":2},
+		"3": {"title":"Full-support template tags with built-in logic and customerized JavaScript functions; 常见模板语言功能全支持，附带复杂而强大的JavaScript编程能力", "content":"Full-support template tags with built-in logic and customerized JavaScript functions;"},
+		"4": {"title":"No more tags language to be learned, just JavaScript; 无学习成本，直接使用JavaScript书写模板语言....", "content":"No more tags language to be learned, just JavaScript;"}
 	},
 	"user": {
 		"feedback": 2,
@@ -101,14 +128,14 @@
 	},
 	"userlist": {
 		"usera": {"id":1234, "name":"Alice张"},
-		"userb": {"id": 4567, "name":"Bob李"}
+		"userb": {"id":4567, "name":"Bob李"}
 	},
 	"atag": "Xenxin\"s Tag",
-	"pageheader":"&lt;div id=\"header\"&gt;     &lt;div class=\"h_box\"&gt;       &lt;div class=\"logo\"&gt;&lt;a href=\"index.html\"&gt;a logo&lt;/a&gt;&lt;/div&gt;       &lt;div class=\"menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"index.html\"&gt;首页&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"about_us.html\"&gt;关于我们&lt;/a&gt;             &lt;div class=\"submenu\"&gt;               &lt;ul&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"about_us.html\"&gt;公司介绍&lt;/a&gt;&lt;/li&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"about_us_2.html\"&gt;品牌介绍&lt;/a&gt;&lt;/li&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"about_us_3.html\"&gt;品牌VIDEO&lt;/a&gt;&lt;/li&gt;                                 &lt;/ul&gt;             &lt;/div&gt;           &lt;/li&gt;           &lt;li&gt;&lt;a href=\"products.html\"&gt;产品中心&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"news.html\" class=\"active\"&gt;新闻媒体&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"active.html\"&gt;品牌活动&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"faq.html\"&gt;营养咨询&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"sale.html\"&gt;售卖专柜&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"shop.html\"&gt;网络商城&lt;/a&gt;&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;     &lt;/div&gt;     &lt;div class=\"clear\"&gt;&lt;/div&gt;   &lt;/div&gt;",
+	"pageheader":"&lt;div id=\"header\"&gt;     &lt;div class=\"h_box\"&gt;       &lt;div class=\"logo\"&gt;&lt;a href=\"#\"&gt;GTJSTpl&lt;/a&gt;&lt;/div&gt;       &lt;div class=\"menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"gtjstpl.demo.html?ri=\"&gt;首页&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"#\"&gt;关于GTJSTpl&lt;/a&gt;             &lt;div class=\"submenu\"&gt;               &lt;ul&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"#\"&gt;GTJSTpl介绍&lt;/a&gt;&lt;/li&gt;                   &lt;li class=\"title\"&gt;&lt;a href=\"#\"&gt;GTJSTpl品牌&lt;/a&gt;&lt;/li&gt;   &lt;/ul&gt;             &lt;/div&gt;           &lt;/li&gt;          &lt;li&gt;&lt;a href=\"#\" class=\"active\"&gt;GTJSTpl in 新闻&lt;/a&gt;&lt;/li&gt;  &lt;/ul&gt;       &lt;/div&gt;     &lt;/div&gt;     &lt;div class=\"clear\"&gt;&lt;/div&gt;   &lt;/div&gt;",
 	
-	"model":"&lt;div class=\"news\"&gt;           &lt;div class=\"title\"&gt;最新新闻&lt;/div&gt;           &lt;div class=\"content\"&gt;             &lt;ul class=\"cont\" tpldata=\"newslist::repeat::\"&gt; 			{for (var $k in $newslist)}               &lt;li&gt;&lt;a class=\"btn_show\" href=\"{$newslist[$k]['href']}\"&gt;&gt; {$newslist[$k]['title']} 					&lt;a name=\"atag\" tpldata=\"atag::updatevalue\"&gt;{$newslist[$k]['title']}&lt;/a&gt; 				&lt;/a&gt; 				{if $newslist[$k]['title'].length &gt; 15 } 					&lt;span&gt;Length is too long!&lt;/span&gt; 				{else} 					&lt;span&gt;Length is okay.&lt;/span&gt; 				{/if} 			  &lt;/li&gt; 			{/for}               &lt;!-- 			  &lt;li&gt;&lt;a class=\"btn_show\" href=\"#1\"&gt;&gt; 更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃。&lt;/a&gt;&lt;/li&gt; 				--&gt; 			&lt;/ul&gt;           &lt;/div&gt;           &lt;div class=\"pages\"&gt;             &lt;ul&gt;               &lt;li&gt;&lt;a href=\"javascript:;\"&gt; &lt; &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"#\"&gt; 6 &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"javascript:;\"&gt; &gt; &lt;/a&gt;&lt;/li&gt;               &lt;li&gt;&lt;a href=\"javascript:;\" tpldata=\"newslist_nextpage::updateattribute::href\" href=\"{$newslist_nextpage}\"&gt; 下一页 &lt;/a&gt;&lt;/li&gt;             &lt;/ul&gt;           &lt;/div&gt;         &lt;/div&gt;",
+	"model":"&lt;div class=\"news\"&gt;           &lt;div class=\"title\"&gt;最新新闻/News&lt;/div&gt;           &lt;div class=\"content\"&gt;             &lt;ul class=\"cont\" tpldata=\"newslist::repeat::\"&gt; 			{for (var $k in $newslist)}               &lt;li&gt;&lt;a class=\"btn_show\" href=\"{$newslist[$k]['href']}\"&gt;&gt; {$newslist[$k]['title']} 					&lt;a name=\"atag\" tpldata=\"atag::updatevalue\"&gt;{$newslist[$k]['title']}&lt;/a&gt; 				&lt;/a&gt; 				{if $newslist[$k]['title'].length &gt; 25 } 					&lt;span&gt;Length is too long!&lt;/span&gt; 				{else} 					&lt;span&gt;Length is okay.&lt;/span&gt; 				{/if} 			  &lt;/li&gt; 			{/for}               &lt;!-- 			  &lt;li&gt;&lt;a class=\"btn_show\" href=\"#1\"&gt;&gt; 更高生物利用度（更好更快被吸收）、高活性成分、不刺激肠胃。&lt;/a&gt;&lt;/li&gt; 				--&gt; 			&lt;/ul&gt;           &lt;/div&gt;           &lt;div class=\"pages\"&gt;             &lt;ul&gt;           &lt;li&gt;&lt;a href=\"javascript:;\" tpldata=\"newslist_nextpage::updateattribute::href\" href=\"{$newslist_nextpage}\"&gt; 下一页 &lt;/a&gt;&lt;/li&gt;             &lt;/ul&gt;           &lt;/div&gt;         &lt;/div&gt;",
 	
-	"pagefooter":"&lt;div id=\"footer\"&gt;   &lt;script&gt; 	if(1==1){console.log(\"2nd 1==1.\"+(new Date()));} 	else if(2==2) 	{if(3==3){console.log(\"2nd 3==3\"+(new Date()));};}; function aFunc(myi){if (1==1){console.log(\"this is in aFunc \"+(new Date())+''+myi); return ('now:'+(new Date())+''+myi);}}   &lt;/script&gt;     &lt;div class=\"f_box\"&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"http://ufqi.com/\"&gt; base code &lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"f_logo\"&gt;         &lt;a href=\"javascript:;\"&gt; wenxin logo&lt;/a&gt;       &lt;/div&gt;       &lt;div class=\"allright\"&gt; footer bottom &lt;/div&gt;       &lt;div class=\"f_menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"contact.html\"&gt;联系我们&lt;/a&gt;&lt;/li&gt;           &lt;li&gt;&lt;a href=\"legal.html\"&gt;法律声明&lt;/a&gt;&lt;/li&gt;           &lt;li class=\"last\"&gt;&lt;a href=\"http://www.miit.gov.cn/\" target=\"_blank\" &gt;京ICP备1204600号 &lt;/a&gt; &copy; &lt;span tpldata=\"copyright_year::updatevalue::\"&gt;{$copyright_year}&lt;/span&gt; UFQI. 保留所有权利.&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;       &lt;div class=\"allright_2\" onclick=\"javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}\"&gt;footer logo&lt;/div&gt;     &lt;/div&gt;   &lt;/div&gt;"
+	"pagefooter":"&lt;div id=\"footer\"&gt;   &lt;script&gt; 	if(1==1){console.log(\"2nd 1==1.\"+(new Date()));} 	else if(2==2) 	{if(3==3){console.log(\"2nd 3==3\"+(new Date()));};}; function aFunc(myi){if (1==1){console.log(\"this is in aFunc \"+(new Date())+''+myi); return ('now:'+(new Date())+''+myi);}}   &lt;/script&gt;     &lt;div class=\"f_box\"&gt;       &lt;div class=\"f_logo\"&gt;         &lt;/div&gt;      &lt;div class=\"f_menu\"&gt;         &lt;ul&gt;           &lt;li&gt;&lt;a href=\"#\"&gt;联系GTJSTpl&lt;/a&gt;&lt;/li&gt;   &copy; &lt;span tpldata=\"copyright_year::updatevalue::\"&gt;{$copyright_year}&lt;/span&gt; &lt;a href=\"/\"&gt;-UFQI&lt;/a&gt;. All rights reversed.&lt;/li&gt;         &lt;/ul&gt;       &lt;/div&gt;       &lt;div class=\"allright_2\" onclick=\"javascript:if(1==1){aFunc();}else{if(1==1){aFunc();}}\"&gt;GTJSTpl&lt;/div&gt;     &lt;/div&gt;   &lt;/div&gt;"
 }
 </div>
 
