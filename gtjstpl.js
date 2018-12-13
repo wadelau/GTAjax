@@ -12,25 +12,6 @@
  * @Xenxin@ufqi.com, Wadelau@hotmail.com
  * @Since Oct 10, 2018
  * @Ver 1.1
- * 
- *** Philosophy:
- * God's return to God, Caesar's return to Caesar; 
- * the backend runs in background, the frontend is executed in foreground.
- * 上帝的归上帝, 凯撒的归凯撒; 后端的归后台, 前端的归前台。
- * 
- *** Pros:
- 1) Runtime in client-side, reduce computing render in server-side;
- 2) Language-independent, not-bound with backend scripts/languages;
- 3) Totally-isolated between MVC, data transfer with JSON;
- 4) Full-support template tags with built-in logic and customerized JavaScript functions;
- 5) No more tags language to be learned, just JavaScript;
- ...
- *** History:
- * Nov 24, 2018, +include with scripts
- * Dec 02, 2018, +variables, +functions
- * Dec 04, 2018, +tpl2code string to array, +foreach
- * Dec 08, 2018, +else if, +embedded tpl in <>
- * Dec 16, 2018, +literal
  */
 
 "use strict"; //- we are serious
@@ -536,3 +517,24 @@ window.GTJSTpl = window.GTJSTplDefault;
 	
 })(window); //- anonymous GTJSTpl main func end
 //- ----------------- MAGIC COMPLETE -----------------
+/*
+ *** Philosophy:
+ * God's return to God, Caesar's return to Caesar; 
+ * the backend runs in background, the frontend is executed in foreground.
+ * 上帝的归上帝, 凯撒的归凯撒; 后端的归后台, 前端的归前台。
+ * 
+ *** Pros:
+ 1) Runtime in client-side, reduce computing render in server-side;
+ 2) Language-independent, not-bound with backend scripts/languages;
+ 3) Totally-isolated between MVC, data transfer with JSON;
+ 4) Full-support template tags with built-in logic and customerized JavaScript functions;
+ 5) No more tags language to be learned, just JavaScript;
+ ...
+ *** History:
+ * Nov 24, 2018, +include with scripts
+ * Dec 02, 2018, +variables, +functions
+ * Dec 04, 2018, +tpl2code string to array, +foreach
+ * Dec 08, 2018, +else if, +embedded tpl in <>
+ * Dec 16, 2018, +literal
+ *
+ */
