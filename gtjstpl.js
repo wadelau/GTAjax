@@ -1,6 +1,5 @@
 //-
 //- GTJSTpl
-//- 
 /* 
  * (G)enerally-(T)argeted
  * (J)ava(S)cript-based HTML (T)em(pl)ate Engine
@@ -10,7 +9,7 @@
  *
  * @Born with GWA2， General Web Application Architecture
  * @Xenxin@ufqi.com, Wadelau@hotmail.com
- * @Since Oct 10, 2018
+ * @Since July 07, 2016, refactor on Oct 10, 2018
  * @Ver 1.1
  */
 
@@ -59,7 +58,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 	//- handle server response in json, 
 	//- parse it into global variables starting with this tplVarTag
 	var pageJsonElement = document.getElementById(jsonDataId);
-	var tplData = {};
+	var tplData = {}; // data holder
 	if(pageJsonElement){ 
 		var tplDataStr = pageJsonElement.innerText;
 		try{
@@ -86,9 +85,10 @@ window.GTJSTpl = window.GTJSTplDefault;
 	else{
 		console.log(logTag+'pageJsonElement:['+jsonDataId+'] has error. 201812010927'); 
 	}
+	tplData = null;
 	
-	//- parse all tag blocks
 	//- main function
+	//- parse all tag blocks
 	console.log("aft parse copyright_year:"+$copyright_year);
 	var renderTemplate = function(window, document, tplHTML){
 		
@@ -156,7 +156,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 		//console.log(tplRaw);
 		
 		//- parepare-3
-		//- parse literal scripts
+		//- parse literal scripts, self-defined literal tag?
 		var literalRe = /\{literal\}(.*?)\{\/literal\}/gm;
 		var tplSegmentPre = []; var hasLiteralScript = false; lastpos = 0;
 		if(tplRaw.indexOf('{literal}') > -1){
@@ -230,7 +230,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 		}
 		//console.log(tplSegment);
 		
-		//- main body 
+		//- main body of main function
 		//- loop over tplSegment for tags interpret
 		var tpl2code, tpl2codeArr; segStr = ''; segi = 0;
 		tpl2codeArr = []; tpl2codeArr.push("var tpl2js = [];");
@@ -241,12 +241,11 @@ window.GTJSTpl = window.GTJSTplDefault;
 			if(segStr.indexOf(unParseTag) > -1){ //- literal scripts
 				segStr = segStr.replace(unParseTag, '');
 				tpl2codeArr.push("\ttpl2js.push(\""+segStr+"\");");
-				//console.log(segStr);
 			}
 			else if(segStr.indexOf(parseTag) == -1){ //- original scripts
 				tpl2codeArr.push("\n" + segStr);
 			}
-			else{ //- mixed tpl content
+			else{ //- mixed tpl content, unspecified
 				//- parse all tpl tags with match
 				segStr = segStr.replace(parseTag, ''); lastpos = 0;
 				while(match = tplRe.exec(segStr)){
@@ -431,7 +430,7 @@ window.GTJSTpl = window.GTJSTplDefault;
 	//- inner methods
 	//- parse tags embedded in an html element
 	var _parseTagInElement = function(exprStr, match){
-		//- only if support?
+		//- only if support? @todo
 		if(!exprStr){ return ''; }
 		exprStr = exprStr.replace(/\}=""/g, '}')
 			.replace(/\{="" /g, '{/')
