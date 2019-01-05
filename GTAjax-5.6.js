@@ -17,9 +17,14 @@
  */ 
 //---- DO NOT CHANGE ANY PART OF THE CODE UNDER THIS LINE ---
 var GTAj = null ; 
-var GTAjVar = {helpurl:'http://ufqi.com/dev/gtajax/'} ;
+var GTAjVar = {helpurl:'https://ufqi.com/dev/gtajax/'} ;
 var GTAjStatus = {hdlcp:0, nowopen:0, lastopen:0, gti:0, tlpid:0, bki:0,maxbk:9, ierdy:0};
 var GTAjBK = {} ;
+
+if(!window){ window = {}; } //- why this?
+if (typeof window.console == "undefined") {
+    window.console = {log: function(errMsg){ window.alert(errMsg); }};
+}
 
 function GTAjax(){
 	//--- initiate
