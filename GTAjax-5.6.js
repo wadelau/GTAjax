@@ -14,6 +14,7 @@
  * Sun Jan 24 12:56:43 CST 2016
  * Fri May 25 08:51:23 CST 2018, code format refine and cA.sort bugfix
  * Wed Oct 31 21:57:26 CST 2018, +form Name validate
+ * 11:06 Friday, August 16, 2019, imprvs with form validate
  */ 
 //---- DO NOT CHANGE ANY PART OF THE CODE UNDER THIS LINE ---
 var GTAj = null ; 
@@ -282,7 +283,7 @@ function GTAjax(){
                     }
 				}
 				catch (eFNm){
-					//- debug?
+					console.log(eFNm);
 				}
 				this._DBG( GTAj.vA['ib'],'sForm/aft',sForm);
 				if( sForm!=null && typeof sForm !='undefined' ){
@@ -433,7 +434,8 @@ function GTAjax(){
 						}
 					}
 					catch(e2){
-					   return this._RGT( 'formElement3',e2 ); // when err reinit the environment...
+						console.log(e2);
+					    return this._RGT( 'formElement3',e2 ); // when err reinit the environment...
 					}
 			        //---- end of real form action
 				}
@@ -570,6 +572,7 @@ function GTAjax(){
 						}
 					}
 					catch(e39){
+						console.log(e39);
 						//--- xmlhttp.open fail, set ff==true and try again..
 						this._SAY(GTAj.sFld, GTAj.vA['sbv'],true);
 						GTAj.vA['ff'] = true ;
@@ -662,7 +665,8 @@ function GTAjax(){
 							this._DBG( GTAj.vA['ib'],'GTAj.xmlhttp-sRe',GTAj.sRe 
 									+ ', GTAj.rtns:['+GTAj.rtns	+'] ');
 						}
-						catch(e3){ 
+						catch(e3){
+							console.log(e3);
 							//--- xmlhttp.open fail, set ff==true and try again..
 							this._DBG(GTAj.vA["ib"],"GTAj.xmlhttp.fail","xmlhttp:["
 									+GTAj.xmlhttp+"],failed.");
@@ -742,7 +746,8 @@ function GTAjax(){
 					}
 					sRe2 = null ;
 				}
-				catch( e7 ){	
+				catch( e7 ){
+					console.log(e7);
 					this._DBG( GTAj.vA['ib'],'accessRe',e7.message );
 					//--- tell script to waiting again,Modified on 2006-7-7 11:36 
 					eval('GTAjStatus.pid'+GTAjStatus.nowopen+'=GTAj;');
@@ -853,7 +858,7 @@ function GTAjax(){
 			else{
 				this._DBG( GTAj.vA['ib'],'sRe-waiting','sRe:['+GTAj.sRe+'],state:['+GTAj.rtns+']');
 			}
-		}		
+		}	
 	}
 	
 	//- output debug info when isdebug=1
@@ -916,6 +921,7 @@ function GTAjax(){
 			}
 		}
 		catch(e1609){
+			console.log(e1609);
             if( GTAj){
 			    return GTAj._RGT('GTAj._LOP()',e1609)
             }
@@ -1209,7 +1215,8 @@ function GTAjax(){
 				}
 			}
 		}
-		catch(eDiv){	
+		catch(eDiv){
+			console.log(eDiv);
 			return this._RGT('prcsDiv',eDiv);
 		}
 	}
@@ -1286,12 +1293,12 @@ function GTAjax(){
 						}
 					}
 					else if(chktype=='lt' || chktype=='lessthan'){
-						if( isNaN(strVal) ||(eval(strVal) >= prefixval)){ 
+						if( isNaN(strVal) || strVal.trim()=='' || (eval(strVal) >= prefixval)){ 
 							chkok = false ;                 
 						}//if    	
 					}
 					else if(chktype=='gt' || chktype=='greaterthan'){
-						if( isNaN(strVal) ||(eval(strVal) <= prefixval)){ 
+						if( isNaN(strVal) || strVal.trim()=='' ||(eval(strVal) <= prefixval)){ 
 							chkok = false ;                
 						}//if    
 					}
@@ -1345,6 +1352,7 @@ function GTAjax(){
 			return chkok; 
 		}
 		catch(echk){
+			console.log(echk);
 			return GTAj._RGT('formValidate-0',echk);
 		}
 	}
