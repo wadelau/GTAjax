@@ -14,6 +14,11 @@ Mostly, you code one Ajax which can not run in another place with differences in
 
 In order to comply with the differences, people creates many kinds of Ajax, amd so do I, luckily enough, I found one generally-targeted way to comply with all the differences...
 
+
+
+**GTAjax-5.7， Sat July 04, 2020**
+
+
 **GTAjax-5.6, Wed Oct 31 21:57:26 CST 2018**
 
 
