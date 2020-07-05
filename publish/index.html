@@ -8,13 +8,14 @@
 <script type="text/javascript" src="GTAjax_.js"></script>
 <script type="text/javascript">
 <!--
+//-
 function test4( sFrm ){
 		//--- 3.0+ 版本的调用
 		var gtajax = new GTAjax();
-		if(sFrm=='myform')
-		{
-			gtajax.set('chkform','userMail:email+:please fill a valid email.');
-			gtajax.set('chkform','ta1:minlen=10:at least 10 characters required.');
+		if(sFrm=='myform'){
+			//gtajax.set('chkform','userMail:email+:please fill a valid email.');
+			gtajax.set('chkform','userMail::email+::please fill a valid email.');
+			gtajax.set('chkform','ta1::minlen=10::at least 10 characters required.');
 		}
 		gtajax.set('returnname','返回');
 		//gtajax.set('isdebug',true);
@@ -25,41 +26,35 @@ function test4( sFrm ){
 		var tmpstr = gtajax.get( sFrm ) ;
 
 		//if(getTmpStr!=false)
-		{
+		if(true){
 			setTimeout('readComments4(1)',10*1000);
 		}
 
 }
 
-function readComments4(iBgn)
-{
+//-
+function readComments4(iBgn){
 	//--- 3.0+版本的调用
 
 	var gtajax = new GTAjax();
 
 	gtajax.set('targetarea','historycomments');
  	//setGTAjax('forceframe',true);
-
  	//setGTAjax('returndataonly',true);
-
  	gtajax.set('iscache',false);
 
 	//var getTmpStr = GTAjax('gtajax.test.do.php?actstr=list&ibgn='+iBgn);
 	var tmpstr = gtajax.get('gtajax.test.do.php?actstr=list&ibgn='+iBgn);
 
-	if(iBgn!='0')
-	{
+	if(iBgn!='0'){
 		//window.location.href='#readcomments';
 	}
-
-
 }
 
-function test3(sFrm)
-{
+//-
+function test3(sFrm){
  	// before submiting...
- 	if(sFrm=='myform')
-	{
+ 	if(sFrm=='myform'){
 		setGTAjax('chkform','userMail:email+:please fill a valid email.');
 		setGTAjax('chkform','ta1:minlen=10:at least 10 characters required.');
 	}
@@ -72,13 +67,13 @@ function test3(sFrm)
 	var getTmpStr = GTAjax(sFrm);
   	// after submited...
 	//if(getTmpStr!=false)
-	{
+	if(true){
 		setTimeout('readComments(1)',10*1000);
 	}
 }
 
-function test5(sUrl)
-{
+//-
+function test5(sUrl){
 	// before go to next url....
 	setGTAjax('targetarea','newdiv');
 	//setGTAjax('returndataonly',true);
@@ -87,19 +82,16 @@ function test5(sUrl)
 	// after get remote material...
 }
 
-function readComments(iBgn)
-{
+//-
+function readComments(iBgn){
 	setGTAjax('targetarea','historycomments');
  	//setGTAjax('forceframe',true);
-
  	//setGTAjax('returndataonly',true);
-
  	setGTAjax('iscache',false);
 
 	//var getTmpStr = GTAjax('gtajax.test.do.php?actstr=list&ibgn='+iBgn);
 	var getTmpStr = GTAjax('gtajax.test.do.aspx?actstr=list&ibgn='+iBgn);
-	if(iBgn!='0')
-	{
+	if(iBgn!='0'){
 		//window.location.href='#readcomments';
 	}
 	//alert('getdata: '+getTmpStr);
@@ -110,8 +102,7 @@ function readComments(iBgn)
 //-->
 </script>
 <style>
-body,td,a,p
-{
+body,td,a,p{
 	font-family:tahoma,verdana,arial,sans-serif;
 	font-size:9pt;
 	text-decoration:none;
@@ -221,8 +212,7 @@ GTAjax's feathers include:
 function includeFile(strUrl,strId,isCache)
 {
 	var gtajax = new GTAjax();
-	if(!isCache)
-	{
+	if(!isCache){
 		gtajax.setGTAjax('iscache',false);
 	}
 	gtajax.setGTAjax('targetarea',strId);
@@ -234,7 +224,10 @@ v5.2+ 之后，不再支持 setGTAjax / getGTAjax ， 统一为 set / get .
 
 <br/>
 然后页面中调用:
-&lt;div id="div-1"&gt;&lt;script type="text/javascript"&gt;includeFile('abc.jsp','div-1',false);&lt;/script&gt;&lt;/div&gt;
+&lt;div id="div-1"&gt;
+&lt;script type="text/javascript"&gt;
+includeFile('abc.jsp','div-1',false);&lt;/script&gt;
+&lt;/div&gt;
 			</pre>
 			</td>
 	</tr>
@@ -324,7 +317,7 @@ setGTAjax ('processbar',true); // 是否显示处理中提示条, 默认是显�
 setGTAjax ('backlink',true); // 是否在返回内容中追加返回链接,默认为是(1.89+ )
 <br/>setGTAjax('forceframetag','fftag'); //告知服务器端,此次请求是普通请求,非xmlhttp,服务器端可据此fftag=1来判断(1.91+)
 <br/>
-setGTAjax('chkform','userMail:email+:user mail should be an valid email address'); //
+setGTAjax('chkform','userMail::email+::user mail should be an valid email address'); //
  设定表单递交验证项(详细见下表)
 
  <br/><br/>
@@ -360,7 +353,7 @@ v5.2新增属性和不兼容设置：
 
 <br/>
 GTAjax的表单验证(<b>v5.10- 适用, v5.2+ 请参照上面的说明</b>),其配置为:
-<br/> setGTAjax('chkform','userMail:email+:user mail should be an valid email address');
+<br/> setGTAjax('chkform','userMail::email+::user mail should be an valid email address');
 <br/>其中'chkform'
 : tell GTAjax to validate form data.
 <pre>
@@ -382,7 +375,7 @@ empty  // 不能为空</td></tr>
           <td>checks the length entered data to the maximum. For
             example, if the maximum size permitted is 25, give the validation descriptor as "maxlen=25"
 // 长度检测,至多允可长度,  如欲限定在25字符内,则使用表达式, "maxlen=25", 在GTAjax中的完整表达为
-            <br/>setGTAjax('chkform','strField:maxlen=25:this field max length is 25.');      	</td>
+            <br/>setGTAjax('chkform','strField::maxlen=25::this field max length is 25.');      	</td>
       </tr>
       <tr>
 <td>
