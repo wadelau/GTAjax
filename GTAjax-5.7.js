@@ -1208,7 +1208,7 @@ function GTAjax(){
 					var scont = '&nbsp;'+GTAj.pswd+'...'+tmpiTm
 					+' &nbsp;[ <b><a href="javascript:void(0);" '
 						+'onclick="javascript:GTAj._RGT(\'\',\'\');" '
-						+'title="Cancel" style="color:#ff0000">X</a></b> ]&nbsp;';
+						+'title="Cancel" style="color:#ff0000" target="_self">X</a></b> ]&nbsp;';
 					var stmpcont = '<div id="'+GTAj.gtFDiv
 						+'_x" style="position:absolute;left:0;top:'+pY
 						+'px;height:20px;background-color:#FFFF99;color:#ff0000;font-size:12pt;'
